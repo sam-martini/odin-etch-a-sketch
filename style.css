@@ -13,8 +13,14 @@ body {
 }
 
 .grid-container {
-    height: 75vw;
-    width: 75vw;
+    height: 80vw;
+    width: 80vw;
+    display: flex;
+    flex-wrap: wrap;
     border: 5px solid rgb(76, 53, 53);
     background-color: bisque;
+}
+
+.square {
+    border: .2px solid black;
 }
