@@ -4,6 +4,7 @@ const eightGridBtn = document.querySelector('#eight-btn');
 const sixteenGridBtn = document.querySelector('#sixteen-btn');
 const thirtytwoGridBtn = document.querySelector('#thirtytwo-btn');
 const sixtyfourGridBtn = document.querySelector('#sixtyfour-btn');
+const randomBtn = document.querySelector('#random-btn');
 
 
 function clearGrid() {
@@ -42,10 +43,15 @@ function createGrid(size) {
 //  depending on user input
 
 let colorChoice = 'black';
+let useRandomColor = false;
 
 function changeBackground(e) {
     console.log(e.target);
-    e.target.style.setProperty('--color-choice', colorChoice);
+    if (useRandomColor) {
+        e.target.style.setProperty('--color-choice', randomColor());
+    } else {
+        e.target.style.setProperty('--color-choice', colorChoice);
+    }
 }
 
 function getSquares() {
@@ -69,6 +75,32 @@ function pickColor(e) {
 }
 
 colorPicker.addEventListener('change', pickColor);
+
+
+
+
+// make a function that randomly generates a color
+// add an event listener to the random button that will toggle on/off
+//  add a variable that keeps track of its true/false value
+
+// add an if/else statement to the changeBackground function so that when random is true,
+// it calls the randomColor function as the --color-choice property
+// if not then it uses the colorChoice variable.
+
+
+function randomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+randomBtn.addEventListener('click', () => {
+    useRandomColor = !useRandomColor;
+})
+
 
 
 
