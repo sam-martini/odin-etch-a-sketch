@@ -1,6 +1,16 @@
 const gridContainer = document.querySelector('.grid-container');
 const colorPicker = document.querySelector('#color-picker');
+const eightGridBtn = document.querySelector('#eight-btn');
+const sixteenGridBtn = document.querySelector('#sixteen-btn');
+const thirtytwoGridBtn = document.querySelector('#thirtytwo-btn');
+const sixtyfourGridBtn = document.querySelector('#sixtyfour-btn');
 
+
+function clearGrid() {
+    while(gridContainer.firstChild) {
+        gridContainer.removeChild(gridContainer.firstChild);
+    }
+}
 // create a function that takes in a number and generates a grid with that number of even squares
 // per side. 
 function createGrid(size) {
@@ -18,8 +28,6 @@ function createGrid(size) {
         gridContainer.appendChild(square);
     }
 }
-
-createGrid(8);
 
 
 
@@ -49,8 +57,6 @@ function getSquares() {
     });
 }
 
-getSquares();
-
 
 
 
@@ -58,10 +64,31 @@ getSquares();
 // to it and asign its value to the colorChoice variable
 
 
-
-
 function pickColor(e) {
     colorChoice = e.target.value;
 }
 
 colorPicker.addEventListener('change', pickColor);
+
+
+
+
+
+// add event listeners to the grid-size buttons
+// call a function that clears the grid, creates a grid with 
+// the size of the buttons value and then get the squares by calling the getSquares function
+
+function newGrid(e) {
+    const size = parseInt(this.value);
+    clearGrid();
+    createGrid(size);
+    getSquares();
+}
+
+
+const sizeButtons = [eightGridBtn, sixteenGridBtn, thirtytwoGridBtn, sixtyfourGridBtn];
+
+
+sizeButtons.forEach(button => {
+    button.addEventListener('click', newGrid);
+})
