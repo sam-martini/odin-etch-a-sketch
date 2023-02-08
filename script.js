@@ -1,4 +1,5 @@
 const gridContainer = document.querySelector('.grid-container');
+const colorPicker = document.querySelector('#color-picker');
 
 // create a function that takes in a number and generates a grid with that number of even squares
 // per side. 
@@ -49,3 +50,18 @@ function getSquares() {
 }
 
 getSquares();
+
+
+
+
+// get the value of the color picker by adding an event listener
+// to it and asign its value to the colorChoice variable
+
+
+
+
+function pickColor(e) {
+    colorChoice = e.target.value;
+}
+
+colorPicker.addEventListener('change', pickColor);
