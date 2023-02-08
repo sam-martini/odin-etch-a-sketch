@@ -34,34 +34,54 @@ function createGrid(size) {
 
 
 
-// get each square from the grid using queryselectorAll 
-// addeventlistener to all and look for a click
-// call a function that changes the background color of the 
-// target square by using a css variable
+// get each square from the grid using queryselectorAll.
+// add eventlisteners to all squares.
+// when the mouse is clicked down, set mousedown to true.
+// change the background color of the 
+// target square by using a css variable.
+// do the same if mousedown is true and the mouse enters the square.
+// when the mouse is unclicked, set mousedown back to false.
 
 //  the color choice is stored in a variable that will change
-//  depending on user input
+//  depending on user input.
+
+// if random color is set to true, use that. 
+// otherwise use the color choice variable.
 
 let colorChoice = 'black';
 let useRandomColor = false;
+let mouseDown = false;
 
-function changeBackground(e) {
-    console.log(e.target);
-    if (useRandomColor) {
-        e.target.style.setProperty('--color-choice', randomColor());
-    } else {
-        e.target.style.setProperty('--color-choice', colorChoice);
-    }
-}
 
-function getSquares() {
+function paintSquares() {
     const squares = gridContainer.querySelectorAll('.square');
-    console.log(squares);
-
+    
     squares.forEach(square => {
-        square.addEventListener('click', changeBackground);
+        square.addEventListener('mousedown', (e) => {
+            mouseDown = true;
+            if (useRandomColor) {
+                e.target.style.setProperty('--color-choice', randomColor());
+            } else {
+                e.target.style.setProperty('--color-choice', colorChoice);
+            }
+        });
+
+        square.addEventListener('mouseenter', (e) => {
+            if (mouseDown) {
+                if (useRandomColor) {
+                    e.target.style.setProperty('--color-choice', randomColor());
+                } else {
+                    e.target.style.setProperty('--color-choice', colorChoice);
+                }
+            }
+        });
+
+        square.addEventListener('mouseup', () => {
+            mouseDown = false;
+        });
     });
 }
+
 
 
 
@@ -114,7 +134,7 @@ function newGrid(e) {
     const size = parseInt(this.value);
     clearGrid();
     createGrid(size);
-    getSquares();
+    paintSquares();
 }
 
 
