@@ -1,5 +1,6 @@
 :root {
     --color-choice: #ffffff;
+    --border: none;
 }
 
 * {
@@ -26,6 +27,6 @@ body {
 }
 
 .square {
-    border: .2px solid black;
+    border: var(--border);
     background-color: var(--color-choice);
 }

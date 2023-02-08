@@ -5,6 +5,8 @@ const sixteenGridBtn = document.querySelector('#sixteen-btn');
 const thirtytwoGridBtn = document.querySelector('#thirtytwo-btn');
 const sixtyfourGridBtn = document.querySelector('#sixtyfour-btn');
 const randomBtn = document.querySelector('#random-btn');
+const gridBtn = document.querySelector('#grid-btn');
+const root = document.querySelector(':root');
 
 
 function clearGrid() {
@@ -143,4 +145,25 @@ const sizeButtons = [eightGridBtn, sixteenGridBtn, thirtytwoGridBtn, sixtyfourGr
 
 sizeButtons.forEach(button => {
     button.addEventListener('click', newGrid);
+})
+
+
+
+
+// add a button that when clicked, toggles the grid on/off 
+// set a css variable to the square border property
+let gridOn = false;
+function showGrid() {
+    if (gridOn) {
+        root.style.setProperty('--border', '.5px solid black');
+    } else {
+        root.style.setProperty('--border', 'none');
+    }
+}
+
+
+
+gridBtn.addEventListener('click', () => {
+    gridOn = !gridOn;
+    showGrid();
 })
