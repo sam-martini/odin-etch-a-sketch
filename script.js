@@ -8,6 +8,7 @@ const randomBtn = document.querySelector('#random-btn');
 const gridBtn = document.querySelector('#grid-btn');
 const root = document.querySelector(':root');
 const eraserBtn = document.querySelector('#eraser-btn');
+const clearBtn = document.querySelector('#clear-btn');
 
 
 function clearGrid() {
@@ -216,3 +217,26 @@ eraserBtn.addEventListener('click', () => {
     erase = !erase;
     eraseSquares();
 });
+
+
+
+
+
+
+
+
+
+// add an eventlistener to the clear button. 
+// when clicked, every squares background color reverts back to transparent.
+clearBtn.addEventListener('click', () => {
+    const squares = gridContainer.querySelectorAll('.square');
+    squares.forEach(square => {
+        square.style.setProperty('--color-choice', 'transparent');
+    })
+})
+
+
+
+// have a default grid when page starts
+createGrid(16);
+paintSquares();
