@@ -30,3 +30,7 @@ body {
     border: var(--border);
     background-color: var(--color-choice);
 }
+
+.active-btn {
+    background-color: yellow;
+}

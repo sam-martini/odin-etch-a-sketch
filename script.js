@@ -121,6 +121,7 @@ function randomColor() {
 }
 
 randomBtn.addEventListener('click', () => {
+    randomBtn.classList.toggle('active-btn');
     useRandomColor = !useRandomColor;
 })
 
@@ -165,6 +166,7 @@ function showGrid() {
 
 
 gridBtn.addEventListener('click', () => {
+    gridBtn.classList.toggle('active-btn');
     gridOn = !gridOn;
     showGrid();
 })
@@ -210,6 +212,7 @@ function eraseSquares() {
 }
 
 eraserBtn.addEventListener('click', () => {
+    eraserBtn.classList.toggle('active-btn');
     erase = !erase;
     eraseSquares();
 });
