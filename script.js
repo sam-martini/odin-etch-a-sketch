@@ -7,6 +7,7 @@ const sixtyfourGridBtn = document.querySelector('#sixtyfour-btn');
 const randomBtn = document.querySelector('#random-btn');
 const gridBtn = document.querySelector('#grid-btn');
 const root = document.querySelector(':root');
+const eraserBtn = document.querySelector('#eraser-btn');
 
 
 function clearGrid() {
@@ -167,3 +168,48 @@ gridBtn.addEventListener('click', () => {
     gridOn = !gridOn;
     showGrid();
 })
+
+
+
+
+
+
+
+
+
+
+
+// make an eraser button. add an event listener to it that toggles it on/off.
+// have it run a function that if erase is set to true, sets the background color of sqaures to transparent.
+
+let erase = false;
+
+function eraseSquares() {
+    const squares = gridContainer.querySelectorAll('.square');
+    
+    squares.forEach(square => {
+        square.addEventListener('mousedown', (e) => {
+            mouseDown = true;
+            if (erase) {
+                e.target.style.setProperty('--color-choice', 'transparent');
+            }
+        });
+
+        square.addEventListener('mouseenter', (e) => {
+            if (mouseDown) {
+                if (erase) {
+                    e.target.style.setProperty('--color-choice', 'transparent');
+                }
+            }
+        });
+
+        square.addEventListener('mouseup', () => {
+            mouseDown = false;
+        });
+    });
+}
+
+eraserBtn.addEventListener('click', () => {
+    erase = !erase;
+    eraseSquares();
+});
