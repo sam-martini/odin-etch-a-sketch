@@ -1,36 +1,59 @@
 :root {
-    --color-choice: transparent;
-    --border: none;
+    
+    --grid-border: none;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    color: #c8c8c8;
 }
 
 body {
-    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: rgb(89, 80, 98);
+    background-color: #111111;
 }
+
+h1 {
+    font-size: 5rem;
+}
+
 
 .grid-container {
-    height: 80vw;
-    width: 80vw;
+    /*height: 80vw;
+    width: 80vw;*/
+    height: 30rem;
+    width: 30rem;
     display: flex;
     flex-wrap: wrap;
-    border: 5px solid rgb(76, 53, 53);
-    background-color: bisque;
+
+    background-color: #ffffff;
 }
 
+
+
 .square {
-    border: var(--border);
-    background-color: var(--color-choice);
+    border: var(--grid-border);
+    background-color: transparent;
 }
 
 .active-btn {
-    background-color: yellow;
+    background-color: #023e8a;
+    color: red;
+}
+
+button {
+    color: #111111;
+}
+
+
+
+@media (max-width: 850px) {
+    .grid-container {
+        width: 25rem;
+        height: 25rem;
+    }
 }

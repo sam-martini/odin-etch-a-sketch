@@ -55,9 +55,9 @@ function clearSquares() {
 
 function toggleGrid() {
     if (gridOn) {
-        root.style.setProperty('--border', '.5px solid black');
+        root.style.setProperty('--grid-border', '.5px solid black');
     } else {
-        root.style.setProperty('--border', 'none');
+        root.style.setProperty('--grid-border', 'none');
     }
 }
 
