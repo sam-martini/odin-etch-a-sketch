@@ -6,6 +6,8 @@ const randomBtn = document.querySelector('#random-btn');
 const eraserBtn = document.querySelector('#eraser-btn');
 const clearBtn = document.querySelector('#clear-btn');
 const gridBtn = document.querySelector('#grid-btn');
+const shadeBtn = document.querySelector('#shade-btn');
+const drawBtn = document.querySelector('#draw-btn');
 
 const eightGridBtn = document.querySelector('#eight-btn');
 const sixteenGridBtn = document.querySelector('#sixteen-btn');
@@ -64,6 +66,25 @@ function toggleGrid() {
 
 
 
+
+
+
+
+
+
+
+
+function shade(e) {
+    if (e.target.classList.contains('square')) {
+        const square = e.target;
+        const color = window.getComputedStyle(square).getPropertyValue('background-color');
+        console.log(color);
+    }
+}
+
+
+
+
 function drawMouseDown(e) {
     if (e.target.classList.contains('square')) {
         mouseDown = true;
@@ -113,9 +134,54 @@ function newGrid(e) {
 
 
 
-gridContainer.addEventListener('mousedown', drawMouseDown);
-gridContainer.addEventListener('mousemove', drawMouseMove);
-gridContainer.addEventListener('mouseup', drawMouseUp);
+
+
+let shadeMode = false;
+let drawMode = false;
+
+function toggleDrawMode() {
+    drawBtn.classList.toggle('active-btn');
+    drawMode =! drawMode;
+    if (shadeMode) {
+        shadeBtn.classList.toggle('active-btn');
+        shadeMode = !shadeMode;
+    }
+    if (drawMode) {
+        gridContainer.removeEventListener('click', shade);
+        
+        gridContainer.addEventListener('mousedown', drawMouseDown);
+        gridContainer.addEventListener('mousemove', drawMouseMove);
+        gridContainer.addEventListener('mouseup', drawMouseUp);
+    } else {
+        gridContainer.removeEventListener('mousedown', drawMouseDown);
+        gridContainer.removeEventListener('mousemove', drawMouseMove);
+        gridContainer.removeEventListener('mouseup', drawMouseUp);
+    }
+}
+
+function toggleShadeMode() {
+    shadeBtn.classList.toggle('active-btn');
+    shadeMode = !shadeMode;
+    if (shadeMode) {
+        drawBtn.classList.toggle('active-btn');
+        drawMode = !drawMode;
+        gridContainer.removeEventListener('mousedown', drawMouseDown);
+        gridContainer.removeEventListener('mousemove', drawMouseMove);
+        gridContainer.removeEventListener('mouseup', drawMouseUp);
+
+        gridContainer.addEventListener('click', shade);
+    } else {
+        toggleDrawMode();
+    }
+}
+
+drawBtn.addEventListener('click', toggleDrawMode);
+shadeBtn.addEventListener('click', toggleShadeMode);
+
+
+toggleDrawMode();
+
+
 
 
 colorPicker.addEventListener('change', (e) => {
