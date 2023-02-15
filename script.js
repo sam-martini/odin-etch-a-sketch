@@ -8,7 +8,8 @@ const randomBtn = document.querySelector('#random-btn');
 const eraserBtn = document.querySelector('#eraser-btn');
 
 const shadeBtn = document.querySelector('#shade-btn');
-const lightenBtn = document.querySelector('#lighten-btn');
+const lighterBtn = document.querySelector('#lighter-btn');
+const darkerBtn = document.querySelector('#darker-btn');
 
 const gridBtn = document.querySelector('#grid-btn');
 
@@ -85,7 +86,7 @@ function shadeMouseDown(e) {
     if (darkerShade) {
         newBrightness = Math.max(currentBrightness - 0.1, 0); 
     } else {
-        newBrightness = Math.max(currentBrightness + 0.1, 0);
+        newBrightness = Math.min(currentBrightness + 0.1, 1);
     }
     //apply the new brightness
     square.style.filter = `brightness(${newBrightness})`;
@@ -154,7 +155,7 @@ function toggleDrawMode() {
     drawBtn.classList.toggle('active-btn');
     drawMode =! drawMode;
     if (drawMode) {
-        shadeBtn.classList.remove('active-btn');
+        killShadeBtns();
         shadeMode = false;
         gridContainer.removeEventListener('mousedown', shadeMouseDown);
         gridContainer.removeEventListener('mouseover', shadeMouseOver);
@@ -173,6 +174,7 @@ function toggleDrawMode() {
 function toggleShadeMode() {
     shadeBtn.classList.toggle('active-btn');
     shadeMode = !shadeMode;
+    checkShade();
     if (shadeMode) {
         drawBtn.classList.remove('active-btn');
         drawMode = false;
@@ -216,7 +218,41 @@ function getFilterValue(element) {
 
 
 
+//  Lighter / Darker Buttons
 
+function lighterClick(e) {
+    if (shadeMode && darkerShade) {
+        lighterBtn.classList.toggle('active-btn');
+        darkerBtn.classList.remove('active-btn');
+        darkerShade = false;
+        lighterShade = true;
+    }
+
+}
+
+function darkerClick(e) {
+    if (shadeMode && lighterShade) {
+        darkerBtn.classList.toggle('active-btn');
+        lighterBtn.classList.remove('active-btn');
+        darkerShade = true;
+        lighterShade = false;
+    }
+}
+
+function checkShade() {
+    if (shadeMode && darkerShade) {
+        darkerBtn.classList.add('active-btn');
+    }
+    if (shadeMode && lighterShade) {
+        lighterBtn.classList.add('active-btn');
+    }
+}
+
+function killShadeBtns() {
+    lighterBtn.classList.remove('active-btn');
+    darkerBtn.classList.remove('active-btn');
+    shadeBtn.classList.remove('active-btn');
+}
 
 
 //      ----        event listeners         ----        ----       
@@ -224,6 +260,9 @@ function getFilterValue(element) {
 drawBtn.addEventListener('click', toggleDrawMode);
 shadeBtn.addEventListener('click', toggleShadeMode);
 
+
+lighterBtn.addEventListener('click', lighterClick);
+darkerBtn.addEventListener('click', darkerClick);
 
 colorPicker.addEventListener('change', (e) => {
     colorChoice = e.target.value;
