@@ -1,6 +1,9 @@
 :root {
     
     --grid-border: none;
+
+    
+
 }
 
 * {
@@ -31,6 +34,7 @@ h1 {
     flex-wrap: wrap;
 
     background-color: #ffffff;
+    box-shadow: 0 4px 8px 0 rgba(139, 136, 143, 0.2), 0 6px 20px 0 rgba(102, 82, 35, 0.741);
 }
 
 
@@ -38,6 +42,9 @@ h1 {
 .square {
     border: var(--grid-border);
     background-color: transparent;
+    
+    filter: brightness(100%);
+    
 }
 
 .active-btn {
