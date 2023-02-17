@@ -42,7 +42,7 @@ let lighterShade = false;
 
 function drawMouseDown(e) {
     if (e.target.classList.contains('square')) {
-        e.target.style.filter = 'brightness(1)';
+        resetBrightness(e.target);
         mouseDown = true;
         if (erase) {
             e.target.style.backgroundColor = 'transparent';
@@ -56,7 +56,7 @@ function drawMouseDown(e) {
 
 function drawMouseOver(e) {
     if (mouseDown && e.target.classList.contains('square')) {
-        e.target.style.filter = 'brightness(1)';
+        resetBrightness(e.target);
         if (erase) {
             e.target.style.backgroundColor = 'transparent';
         } else if (useRandomColor) {
@@ -214,6 +214,10 @@ function getFilterValue(element) {
     //extract the numeric value in between the parantheses of the 'filter' property.
     let value = parseFloat(getComputedStyle(element).getPropertyValue('filter').split('(')[1].split(')')[0]);
     return value;
+}
+
+function resetBrightness(square) {
+    square.style.filter = 'brightness(1)';
 }
 
 
