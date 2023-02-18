@@ -298,5 +298,5 @@ sizeButtons.forEach(button => {
 
 
 
-createGrid(8);
+createGrid(16);
 toggleDrawMode();
