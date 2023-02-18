@@ -1,9 +1,6 @@
 :root {
     
     --grid-border: none;
-
-    
-
 }
 
 * {
@@ -13,12 +10,31 @@
     color: #c8c8c8;
 }
 
+html {
+    height: -webkit-fill-available;
+  }
+
 body {
+    background-color: #a71c1c;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.colorbtns-container,
+.gridbtns-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    background-color: #111111;
+    gap: 5px;
+    padding-top: 1em;
 }
+
 
 h1 {
     font-size: 5rem;
@@ -58,9 +74,27 @@ button {
 
 
 
-@media (max-width: 850px) {
+
+
+
+@media (max-width: 700px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .colorbtns-container,
+    .gridbtns-container {
+        flex-direction: row;
+    }
     .grid-container {
         width: 25rem;
         height: 25rem;
+    }
+}
+
+@media (max-width: 450px) {
+    .grid-container {
+        width: 20rem;
+        height: 20rem;
     }
 }
