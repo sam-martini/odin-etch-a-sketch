@@ -81,7 +81,7 @@ function shadeMouseDown(e) {
     let square = e.target;
     //get the current brightness
     let currentBrightness = getFilterValue(square);
-    //reduce the brightness value by 0.1, capped at a minimum of 0 to prevent it from becoming negative.
+    //reduce the brightness value by 0.1, capped to prevent it from becoming negative or over 1.
     let newBrightness;
     if (darkerShade) {
         newBrightness = Math.max(currentBrightness - 0.1, 0); 
