@@ -112,6 +112,115 @@ function shadeMouseUp(e) {
 
 
 
+
+
+//      ----        Modes       ----        ----        ----
+
+function toggleDrawMode() {
+    drawBtn.classList.toggle('active-btn');
+    drawMode =! drawMode;
+    if (drawMode) {
+        killShadeMode();
+        enableBtns();
+        gridContainer.addEventListener('mousedown', drawMouseDown);
+        gridContainer.addEventListener('mouseover', drawMouseOver);
+        gridContainer.addEventListener('mouseup', drawMouseUp);
+    } else {
+        disableBtns();
+        removeDrawListeners();
+    }
+}
+
+function toggleShadeMode() {
+    shadeBtn.classList.toggle('active-btn');
+    shadeMode = !shadeMode;
+    if (shadeMode) {
+        killDrawMode();
+        disableBtns();
+        checkCurrentShade();
+        gridContainer.addEventListener('mousedown', shadeMouseDown);
+        gridContainer.addEventListener('mouseover', shadeMouseOver);
+        gridContainer.addEventListener('mouseup', shadeMouseUp);
+    } else {
+        toggleDrawMode();
+    }
+}
+
+function toggleEraseMode() {
+    if (!erase && shadeMode) {
+        erase = true;
+    }
+    if (erase) {
+        eraserBtn.classList.add('active-btn');
+        flipPencil();
+    } else {
+        eraserBtn.classList.remove('active-btn');
+        resetPencil();
+    }
+    if (useRandomColor) {
+        killRandomMode();
+    }
+    if (shadeMode) {
+        toggleDrawMode();
+    }
+}
+
+function toggleRandomMode() {
+    if (!useRandomColor && shadeMode){
+        useRandomColor = true;
+    }
+    if (useRandomColor) {
+        randomBtn.classList.add('active-btn');
+        resetPencil();
+    } else {
+        randomBtn.classList.remove('active-btn');
+    }
+    if (erase) {
+        killEraseMode();
+    }
+    if (shadeMode) {
+        toggleDrawMode();
+    }
+}
+
+
+
+
+//  Toggle Lighter / Darker Buttons
+
+function lighterClick(e) {
+    if (shadeMode && darkerShade) {
+        lighterBtn.classList.toggle('active-btn');
+        darkerBtn.classList.remove('active-btn');
+        darkerShade = false;
+        lighterShade = true;
+    }
+
+}
+
+function darkerClick(e) {
+    if (shadeMode && lighterShade) {
+        darkerBtn.classList.toggle('active-btn');
+        lighterBtn.classList.remove('active-btn');
+        darkerShade = true;
+        lighterShade = false;
+    }
+}
+
+function checkCurrentShade() {
+    if (shadeMode && darkerShade) {
+        darkerBtn.classList.add('active-btn');
+    }
+    if (shadeMode && lighterShade) {
+        lighterBtn.classList.add('active-btn');
+    }
+}
+
+
+
+
+
+
 //      ----        grid functions      ----        ----        ----
 
 function createGrid(size) {
@@ -149,46 +258,8 @@ function newGrid(e) {
 
 
 
-//      ----        modes       ----        ----        ----
 
-function toggleDrawMode() {
-    drawBtn.classList.toggle('active-btn');
-    drawMode =! drawMode;
-    if (drawMode) {
-        killShadeBtns();
-        shadeMode = false;
-        gridContainer.removeEventListener('mousedown', shadeMouseDown);
-        gridContainer.removeEventListener('mouseover', shadeMouseOver);
-        gridContainer.removeEventListener('mouseup', shadeMouseUp);
-        
-        gridContainer.addEventListener('mousedown', drawMouseDown);
-        gridContainer.addEventListener('mouseover', drawMouseOver);
-        gridContainer.addEventListener('mouseup', drawMouseUp);
-    } else {
-        gridContainer.removeEventListener('mousedown', drawMouseDown);
-        gridContainer.removeEventListener('mouseover', drawMouseOver);
-        gridContainer.removeEventListener('mouseup', drawMouseUp);
-    }
-}
 
-function toggleShadeMode() {
-    shadeBtn.classList.toggle('active-btn');
-    shadeMode = !shadeMode;
-    checkShade();
-    if (shadeMode) {
-        drawBtn.classList.remove('active-btn');
-        drawMode = false;
-        gridContainer.removeEventListener('mousedown', drawMouseDown);
-        gridContainer.removeEventListener('mouseover', drawMouseOver);
-        gridContainer.removeEventListener('mouseup', drawMouseUp);
-
-        gridContainer.addEventListener('mousedown', shadeMouseDown);
-        gridContainer.addEventListener('mouseover', shadeMouseOver);
-        gridContainer.addEventListener('mouseup', shadeMouseUp);
-    } else {
-        toggleDrawMode();
-    }
-}
 
 
 
@@ -220,67 +291,83 @@ function resetBrightness(square) {
     square.style.filter = 'brightness(1)';
 }
 
-
-
-//  Lighter / Darker Buttons
-
-function lighterClick(e) {
-    if (shadeMode && darkerShade) {
-        lighterBtn.classList.toggle('active-btn');
-        darkerBtn.classList.remove('active-btn');
-        darkerShade = false;
-        lighterShade = true;
-    }
-
+function removeDrawListeners() {
+    gridContainer.removeEventListener('mousedown', drawMouseDown);
+    gridContainer.removeEventListener('mouseover', drawMouseOver);
+    gridContainer.removeEventListener('mouseup', drawMouseUp);
 }
 
-function darkerClick(e) {
-    if (shadeMode && lighterShade) {
-        darkerBtn.classList.toggle('active-btn');
-        lighterBtn.classList.remove('active-btn');
-        darkerShade = true;
-        lighterShade = false;
-    }
-}
-
-function checkShade() {
-    if (shadeMode && darkerShade) {
-        darkerBtn.classList.add('active-btn');
-    }
-    if (shadeMode && lighterShade) {
-        lighterBtn.classList.add('active-btn');
-    }
-}
-
-function killShadeBtns() {
+function killShadeMode() {
+    shadeMode = false;
     lighterBtn.classList.remove('active-btn');
     darkerBtn.classList.remove('active-btn');
     shadeBtn.classList.remove('active-btn');
+    gridContainer.removeEventListener('mousedown', shadeMouseDown);
+    gridContainer.removeEventListener('mouseover', shadeMouseOver);
+    gridContainer.removeEventListener('mouseup', shadeMouseUp);
 }
+
+function killDrawMode() {
+    drawMode = false;
+    drawBtn.classList.remove('active-btn');
+    removeDrawListeners();
+}
+
+function killEraseMode() {
+    erase = false;
+    eraserBtn.classList.remove('active-btn');
+}
+
+function killRandomMode() {
+    useRandomColor = false;
+    randomBtn.classList.remove('active-btn');
+}
+
+function flipPencil() {
+    drawBtn.style.backgroundImage = 'url("images/pencil-flipped.png")';
+}
+
+function resetPencil() {
+    drawBtn.style.backgroundImage = 'url("images/pencil.png")';
+}
+
+function disableBtns() {
+    eraserBtn.classList.add('disabled-btn');
+    randomBtn.classList.add('disabled-btn');
+}
+
+function enableBtns() {
+    eraserBtn.classList.remove('disabled-btn');
+    randomBtn.classList.remove('disabled-btn');
+}
+
+
+
+
+
 
 
 //      ----        event listeners         ----        ----       
 
 drawBtn.addEventListener('click', toggleDrawMode);
+
+randomBtn.addEventListener('click', () => {
+    useRandomColor = !useRandomColor;
+    toggleRandomMode();
+})
+
+eraserBtn.addEventListener('click', () => {
+    erase = !erase;
+    toggleEraseMode();
+});
+
 shadeBtn.addEventListener('click', toggleShadeMode);
-
-
 lighterBtn.addEventListener('click', lighterClick);
 darkerBtn.addEventListener('click', darkerClick);
 
 colorPicker.addEventListener('input', (e) => {
     colorChoice = e.target.value;
 })
-
-randomBtn.addEventListener('click', () => {
-    randomBtn.classList.toggle('active-btn');
-    useRandomColor = !useRandomColor;
-})
-
-eraserBtn.addEventListener('click', () => {
-    eraserBtn.classList.toggle('active-btn');
-    erase = !erase;
-});
 
 clearBtn.addEventListener('click', clearSquares);
 

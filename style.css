@@ -194,6 +194,11 @@ button:hover {
 }
 
 
+.disabled-btn {
+    background-color: #c8c8c8;
+}
+
+
 
 
 
