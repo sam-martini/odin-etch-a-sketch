@@ -26,16 +26,11 @@ button {
     border: none;
 }
 
-button:hover {
-    background-color: #c8c8c8;
-    cursor: pointer;
-}
 
-#lighter-btn:hover,
-#darker-btn:hover,
-#blur-btn:hover {
-    color: white;
-}
+
+
+
+
 
 
 
@@ -44,25 +39,27 @@ body {
     min-height: 100vh;
     min-height: -webkit-fill-available;
     text-align: center;
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-family: 'VT323', monospace;
 }
 
+
+
+
 .container {
     display: flex;
-    gap: 20px;
     justify-content: center;
     margin-top: 5em;
+    gap: 10rem;
 }
 
 .grid-container {
+    flex: 0 0 auto;
     height: 30rem;
     width: 30rem;
     display: flex;
     flex-wrap: wrap;
-
     background-color: #ffffff;
-    box-shadow: 0 4px 8px 0 rgba(139, 136, 143, 0.2), 0 6px 20px 0 rgba(102, 82, 35, 0.741);
     border: 5px solid burlywood;
 }
 
@@ -72,6 +69,10 @@ body {
     flex-direction: column;
     gap: 5px;
 }
+
+
+
+
 
 
 
@@ -89,12 +90,36 @@ body {
 
 
 
+
+
+
+
+
+
+
+.square {
+    border: var(--grid-border);
+    background-color: transparent;
+    filter: brightness(100%);
+    
+}
+
+
+
+
+
+
+
+
+
+
+
 #draw-btn,
 #eraser-btn,
 #random-btn {
     width: 3em;
     height: 3em;
-    border-radius: 20%;
+    border-radius: 25%;
 }
 
 #color-picker {
@@ -117,7 +142,6 @@ body {
 
 #blur-btn {
     margin-top: .5em;
-    color: #c8c8c8;
 }
 
 #shade-btn {
@@ -150,12 +174,19 @@ body {
 
 
 
-.square {
-    border: var(--grid-border);
-    background-color: transparent;
-    filter: brightness(100%);
-    
+
+
+
+
+
+
+
+
+
+button:hover {
+    cursor: pointer;
 }
+
 
 .active-btn {
     background-color: #db0f0f9e;
@@ -171,8 +202,44 @@ body {
 
 
 
-@media (max-width: 700px) {
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 1100px) {
     .container {
+        gap: 5rem;
+    }
+}
+
+@media (max-width: 940px) {
+    .container {
+        gap: 1.3rem;
+    }
+}
+
+
+
+@media (max-width: 850px) {
+    body {
+        font-size: 1rem;
+    }
+}
+
+
+
+
+
+@media (max-width: 780px) {
+    .container {
+        gap: 2rem;
         flex-direction: column;
         align-items: center;
     }
