@@ -268,7 +268,7 @@ shadeBtn.addEventListener('click', toggleShadeMode);
 lighterBtn.addEventListener('click', lighterClick);
 darkerBtn.addEventListener('click', darkerClick);
 
-colorPicker.addEventListener('change', (e) => {
+colorPicker.addEventListener('input', (e) => {
     colorChoice = e.target.value;
 })
 
