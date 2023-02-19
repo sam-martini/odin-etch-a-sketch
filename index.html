@@ -5,33 +5,52 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Etch-A-Sketch</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="header"><h1>etch-a-sketch</h1></div>
+    <div class="header"><h1>etch-a-sketch</h1></div>    
 
     <div class="container">
 
         <div class="gridbtns-container">
-            <button id="clear-btn">clear</button>
+            <button id="clear-btn">Clear</button>
+            <hr>
             <button id="eight-btn" value="8">8x8</button>
             <button id="sixteen-btn" value="16">16x16</button>
             <button id="thirtytwo-btn" value="32">32x32</button>
             <button id="sixtyfour-btn" value="64">64x64</button>
-            <button id="grid-btn">grid</button>
+            <hr>
+            <button id="grid-btn">Toggle Grid</button>
         </div>
 
         <div class="grid-container"></div>
 
 
         <div class="colorbtns-container">
-            <button id="draw-btn">draw</button>
+            <button id="draw-btn">
+            
+            </button>
             <input class="color-choice "type="color" id="color-picker" value="#fff000">
-            <button id="random-btn">random</button>
-            <button id="eraser-btn">eraser</button>
-            <button id="shade-btn">shade</button>
-            <button id="lighter-btn">lighter</button>
-            <button id="darker-btn">darker</button>
+            <button id="random-btn"></button>
+            <button id="eraser-btn">
+                <i class="fa fa-eraser"></i>
+            </button>
+            <hr>
+            <div class="filterbtns-container">
+                <button id="blur-btn">Blur</button>
+                <button id="shade-btn">Shade</button>
+            </div>
+            <div class="shadebtns-container">
+                <button id="lighter-btn">
+                    lighter
+                </button>
+                <button id="darker-btn">
+                    darker
+                </button>
+            </div>
+            
         </div>
     </div>
    
