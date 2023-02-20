@@ -318,6 +318,7 @@ function clearSquares() {
     const squares = gridContainer.querySelectorAll('.square');
     squares.forEach(square => {
         square.style.backgroundColor = 'transparent';
+        square.style.filter = 'blur(0)';
     })
 }
 
