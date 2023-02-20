@@ -20,6 +20,8 @@ const thirtytwoGridBtn = document.querySelector('#thirtytwo-btn');
 const sixtyfourGridBtn = document.querySelector('#sixtyfour-btn');
 const sizeButtons = [eightGridBtn, sixteenGridBtn, thirtytwoGridBtn, sixtyfourGridBtn];
 
+const shadowEl = document.querySelectorAll('.shadow-el');
+
 
 
 
@@ -36,7 +38,7 @@ let drawMode = false;
 let darkerShade = true;
 let lighterShade = false;
 
-
+let backgroundShadow = false;
 
 
 
@@ -300,6 +302,33 @@ function newGrid(e) {
 
 
 
+  
+//      ----        Background Shadow      ----        ----        ----
+
+function shadowPointerDown(e) {
+    if (e.target.classList.contains('square')) {
+        backgroundShadow = true;
+        shadowEl.forEach((el) => {
+            el.classList.add('shadow-on');
+        });
+    }
+}
+
+
+function shadowPointerUp() {
+    backgroundShadow = false;
+    shadowEl.forEach((el) => {
+        el.classList.remove('shadow-on');
+    });
+}
+
+
+
+
+
+
+
+
 
 
 
@@ -439,9 +468,15 @@ sizeButtons.forEach(button => {
     button.addEventListener('click', newGrid);
 })
 
+function mood() {
+    gridContainer.addEventListener('pointerdown', shadowPointerDown);
+    gridContainer.addEventListener('pointerup', shadowPointerUp);
+}
+
 
 
 
 
 createGrid(16);
 toggleDrawMode();
+mood();
