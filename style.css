@@ -24,6 +24,7 @@ body {
     text-align: center;
     font-size: 1.2rem;
     font-family: 'VT323', monospace;
+    background-color: #faf9f9;
 }
 
 
@@ -35,9 +36,16 @@ button {
     font-family: 'VT323', monospace;
     font-size: 1.5em;
     color: black;
-    background-color: white;
+    background-color: #faf9f9;
     padding: 2px;
     border: none;
+}
+
+.header {
+    background: linear-gradient(black, #ffa3b1, #ffc20e);
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
 }
 
 
