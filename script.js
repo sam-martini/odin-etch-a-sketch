@@ -219,7 +219,13 @@ function toggleRandomMode() {
     }
 }
 
-
+function togglePicker() {
+    killEraseMode();
+    killRandomMode();
+    if (shadeMode || blurMode) {
+        toggleDrawMode();
+    }
+}
 
 
 //  Toggle Lighter / Darker Buttons
@@ -413,6 +419,12 @@ darkerBtn.addEventListener('click', darkerClick);
 
 colorPicker.addEventListener('input', (e) => {
     colorChoice = e.target.value;
+    togglePicker();
+})
+
+colorPicker.addEventListener('change', (e) => {
+    colorChoice = e.target.value;
+    togglePicker();
 })
 
 clearBtn.addEventListener('click', clearSquares);
