@@ -24,7 +24,7 @@ const sizeButtons = [eightGridBtn, sixteenGridBtn, thirtytwoGridBtn, sixtyfourGr
 
 
 let showGrid = false;
-let mouseDown = false;
+let pointerDown = false;
 let useRandomColor = false;
 let erase = false;
 let colorChoice = 'black';
@@ -42,22 +42,22 @@ let lighterShade = false;
 
 //      ----    drawing functions      ----     ----        ----
 
-function drawMouseDown(e) {
+function drawPointerDown(e) {
     if (e.target.classList.contains('square')) {
-        mouseDown = true;
+        pointerDown = true;
         drawSquare(e.target);
     }
 }
 
-function drawMouseOver(e) {
-    if (mouseDown && e.target.classList.contains('square')) {
+function drawPointerOver(e) {
+    if (pointerDown && e.target.classList.contains('square')) {
         resetBrightness(e.target);
         drawSquare(e.target);
     }
 }
 
-function drawMouseUp() {
-    mouseDown = false;
+function drawPointerUp() {
+    pointerDown = false;
 }
 
 function drawSquare(square) {
@@ -75,21 +75,21 @@ function drawSquare(square) {
 
 //      ----    shading functions       ----        ----        ----
 
-function shadeMouseDown(e) {
+function shadePointerDown(e) {
     if (e.target.classList.contains('square')) {
-        mouseDown = true;
+        pointerDown = true;
         shadeSquare(e.target);
     }
 }
 
-function shadeMouseOver(e) {
-    if (mouseDown && e.target.classList.contains('square')) {
+function shadePointerOver(e) {
+    if (pointerDown && e.target.classList.contains('square')) {
         shadeSquare(e.target);
     }
 }
 
-function shadeMouseUp() {
-    mouseDown = false;
+function shadePointerUp() {
+    pointerDown = false;
 }
 
 function shadeSquare(square) {
@@ -110,21 +110,21 @@ function shadeSquare(square) {
 
 //      ----    blur functions       ----        ----        ----
 
-function blurMouseDown(e) {
+function blurPointerDown(e) {
     if (e.target.classList.contains('square')) {
-        mouseDown = true;
+        pointerDown = true;
         blurSquare(e.target);
     }
 }
 
-function blurMouseOver(e) {
-    if (mouseDown && e.target.classList.contains('square')) {
+function blurPointerOver(e) {
+    if (pointerDown && e.target.classList.contains('square')) {
         blurSquare(e.target);
     }
 }
 
-function blurMouseUp() {
-    mouseDown = false;
+function blurPointerUp() {
+    pointerDown = false;
 }
 
 function blurSquare(square) {
@@ -142,9 +142,9 @@ function toggleDrawMode() {
         killShadeMode();
         killBlurMode();
         enableBtns();
-        gridContainer.addEventListener('mousedown', drawMouseDown);
-        gridContainer.addEventListener('mouseover', drawMouseOver);
-        gridContainer.addEventListener('mouseup', drawMouseUp);
+        gridContainer.addEventListener('pointerdown', drawPointerDown);
+        gridContainer.addEventListener('pointerover', drawPointerOver);
+        gridContainer.addEventListener('pointerup', drawPointerUp);
     } else {
         disableBtns();
         removeDrawListeners();
@@ -159,9 +159,9 @@ function toggleShadeMode() {
         killBlurMode();
         disableBtns();
         checkCurrentShade();
-        gridContainer.addEventListener('mousedown', shadeMouseDown);
-        gridContainer.addEventListener('mouseover', shadeMouseOver);
-        gridContainer.addEventListener('mouseup', shadeMouseUp);
+        gridContainer.addEventListener('pointerdown', shadePointerDown);
+        gridContainer.addEventListener('pointerover', shadePointerOver);
+        gridContainer.addEventListener('pointerup', shadePointerUp);
     } else {
         toggleDrawMode();
     }
@@ -174,9 +174,9 @@ function toggleBlurMode() {
         killDrawMode();
         killShadeMode();
         disableBtns();
-        gridContainer.addEventListener('mousedown', blurMouseDown);
-        gridContainer.addEventListener('mouseover', blurMouseOver);
-        gridContainer.addEventListener('mouseup', blurMouseUp);
+        gridContainer.addEventListener('pointerdown', blurPointerDown);
+        gridContainer.addEventListener('pointerover', blurPointerOver);
+        gridContainer.addEventListener('pointerup', blurPointerUp);
     } else {
         toggleDrawMode();
     }
@@ -332,9 +332,9 @@ function resetBrightness(square) {
 }
 
 function removeDrawListeners() {
-    gridContainer.removeEventListener('mousedown', drawMouseDown);
-    gridContainer.removeEventListener('mouseover', drawMouseOver);
-    gridContainer.removeEventListener('mouseup', drawMouseUp);
+    gridContainer.removeEventListener('pointerdown', drawPointerDown);
+    gridContainer.removeEventListener('pointerover', drawPointerOver);
+    gridContainer.removeEventListener('pointerup', drawPointerUp);
 }
 
 function killDrawMode() {
@@ -348,17 +348,17 @@ function killShadeMode() {
     lighterBtn.classList.remove('active-btn');
     darkerBtn.classList.remove('active-btn');
     shadeBtn.classList.remove('active-btn');
-    gridContainer.removeEventListener('mousedown', shadeMouseDown);
-    gridContainer.removeEventListener('mouseover', shadeMouseOver);
-    gridContainer.removeEventListener('mouseup', shadeMouseUp);
+    gridContainer.removeEventListener('pointerdown', shadePointerDown);
+    gridContainer.removeEventListener('pointerover', shadePointerOver);
+    gridContainer.removeEventListener('pointerup', shadePointerUp);
 }
 
 function killBlurMode() {
     blurMode = false;
     blurBtn.classList.remove('active-btn');
-    gridContainer.removeEventListener('mousedown', blurMouseDown);
-    gridContainer.removeEventListener('mouseover', blurMouseOver);
-    gridContainer.removeEventListener('mouseup', blurMouseUp);
+    gridContainer.removeEventListener('pointerdown', blurPointerDown);
+    gridContainer.removeEventListener('pointerover', blurPointerOver);
+    gridContainer.removeEventListener('pointerup', blurPointerUp);
 }
 
 function killEraseMode() {
