@@ -190,8 +190,7 @@ function toggleEraseMode() {
         eraserBtn.classList.add('active-btn');
         flipPencil();
     } else {
-        eraserBtn.classList.remove('active-btn');
-        resetPencil();
+        killEraseMode();
     }
     if (useRandomColor) {
         killRandomMode();
@@ -207,7 +206,6 @@ function toggleRandomMode() {
     }
     if (useRandomColor) {
         randomBtn.classList.add('active-btn');
-        resetPencil();
     } else {
         randomBtn.classList.remove('active-btn');
     }
@@ -366,6 +364,7 @@ function killBlurMode() {
 function killEraseMode() {
     erase = false;
     eraserBtn.classList.remove('active-btn');
+    resetPencil();
 }
 
 function killRandomMode() {
