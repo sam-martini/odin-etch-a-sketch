@@ -128,7 +128,7 @@ function blurPointerUp() {
 }
 
 function blurSquare(square) {
-    square.style.filter = 'blur(2px)';
+    square.style.filter = 'blur(15px)';
 }
 
 
