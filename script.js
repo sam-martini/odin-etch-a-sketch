@@ -7,6 +7,7 @@ const colorPicker = document.querySelector('#color-picker');
 const randomBtn = document.querySelector('#random-btn');
 const eraserBtn = document.querySelector('#eraser-btn');
 
+const blurBtn = document.querySelector('#blur-btn');
 const shadeBtn = document.querySelector('#shade-btn');
 const lighterBtn = document.querySelector('#lighter-btn');
 const darkerBtn = document.querySelector('#darker-btn');
@@ -28,6 +29,7 @@ let useRandomColor = false;
 let erase = false;
 let colorChoice = 'black';
 
+let blurMode = false;
 let shadeMode = false;
 let drawMode = false;
 
@@ -42,33 +44,31 @@ let lighterShade = false;
 
 function drawMouseDown(e) {
     if (e.target.classList.contains('square')) {
-        resetBrightness(e.target);
         mouseDown = true;
-        if (erase) {
-            e.target.style.backgroundColor = 'transparent';
-        } else if (useRandomColor) {
-            e.target.style.backgroundColor = randomColor();
-        } else {
-            e.target.style.backgroundColor = colorChoice;
-        }
+        drawSquare(e.target);
     }
 }
 
 function drawMouseOver(e) {
     if (mouseDown && e.target.classList.contains('square')) {
         resetBrightness(e.target);
-        if (erase) {
-            e.target.style.backgroundColor = 'transparent';
-        } else if (useRandomColor) {
-            e.target.style.backgroundColor = randomColor();
-        } else {
-            e.target.style.backgroundColor = colorChoice;
-        }
+        drawSquare(e.target);
     }
 }
 
-function drawMouseUp(e) {
+function drawMouseUp() {
     mouseDown = false;
+}
+
+function drawSquare(square) {
+    resetBrightness(square);
+    if (erase) {
+        square.style.backgroundColor = 'transparent';
+    } else if (useRandomColor) {
+        square.style.backgroundColor = randomColor();
+    } else {
+        square.style.backgroundColor = colorChoice;
+    }
 }
 
 
@@ -76,9 +76,23 @@ function drawMouseUp(e) {
 //      ----    shading functions       ----        ----        ----
 
 function shadeMouseDown(e) {
-    mouseDown = true;
-    //get the current square
-    let square = e.target;
+    if (e.target.classList.contains('square')) {
+        mouseDown = true;
+        shadeSquare(e.target);
+    }
+}
+
+function shadeMouseOver(e) {
+    if (mouseDown && e.target.classList.contains('square')) {
+        shadeSquare(e.target);
+    }
+}
+
+function shadeMouseUp() {
+    mouseDown = false;
+}
+
+function shadeSquare(square) {
     //get the current brightness
     let currentBrightness = getFilterValue(square);
     //reduce the brightness value by 0.1, capped to prevent it from becoming negative or over 1.
@@ -92,25 +106,30 @@ function shadeMouseDown(e) {
     square.style.filter = `brightness(${newBrightness})`;
 }
 
-function shadeMouseOver(e) {
-    if (mouseDown) {
-        let square = e.target;
-        let currentBrightness = getFilterValue(square);
-        let newBrightness;
-        if (darkerShade) {
-            newBrightness = Math.max(currentBrightness - 0.1, 0); 
-        } else {
-            newBrightness = Math.max(currentBrightness + 0.1, 0);
-        }
-        e.target.style.filter = `brightness(${newBrightness})`;
+
+
+//      ----    blur functions       ----        ----        ----
+
+function blurMouseDown(e) {
+    if (e.target.classList.contains('square')) {
+        mouseDown = true;
+        blurSquare(e.target);
     }
 }
 
-function shadeMouseUp(e) {
+function blurMouseOver(e) {
+    if (mouseDown && e.target.classList.contains('square')) {
+        blurSquare(e.target);
+    }
+}
+
+function blurMouseUp() {
     mouseDown = false;
 }
 
-
+function blurSquare(square) {
+    square.style.filter = 'blur(2px)';
+}
 
 
 
@@ -121,6 +140,7 @@ function toggleDrawMode() {
     drawMode =! drawMode;
     if (drawMode) {
         killShadeMode();
+        killBlurMode();
         enableBtns();
         gridContainer.addEventListener('mousedown', drawMouseDown);
         gridContainer.addEventListener('mouseover', drawMouseOver);
@@ -136,6 +156,7 @@ function toggleShadeMode() {
     shadeMode = !shadeMode;
     if (shadeMode) {
         killDrawMode();
+        killBlurMode();
         disableBtns();
         checkCurrentShade();
         gridContainer.addEventListener('mousedown', shadeMouseDown);
@@ -146,8 +167,23 @@ function toggleShadeMode() {
     }
 }
 
+function toggleBlurMode() {
+    blurBtn.classList.toggle('active-btn');
+    blurMode = !blurMode;
+    if (blurMode) {
+        killDrawMode();
+        killShadeMode();
+        disableBtns();
+        gridContainer.addEventListener('mousedown', blurMouseDown);
+        gridContainer.addEventListener('mouseover', blurMouseOver);
+        gridContainer.addEventListener('mouseup', blurMouseUp);
+    } else {
+        toggleDrawMode();
+    }
+}
+
 function toggleEraseMode() {
-    if (!erase && shadeMode) {
+    if (!erase && shadeMode || !erase && blurMode) {
         erase = true;
     }
     if (erase) {
@@ -160,13 +196,13 @@ function toggleEraseMode() {
     if (useRandomColor) {
         killRandomMode();
     }
-    if (shadeMode) {
+    if (shadeMode || blurMode) {
         toggleDrawMode();
     }
 }
 
 function toggleRandomMode() {
-    if (!useRandomColor && shadeMode){
+    if (!useRandomColor && shadeMode || !useRandomColor && blurMode) {
         useRandomColor = true;
     }
     if (useRandomColor) {
@@ -178,7 +214,7 @@ function toggleRandomMode() {
     if (erase) {
         killEraseMode();
     }
-    if (shadeMode) {
+    if (shadeMode || blurMode) {
         toggleDrawMode();
     }
 }
@@ -297,6 +333,12 @@ function removeDrawListeners() {
     gridContainer.removeEventListener('mouseup', drawMouseUp);
 }
 
+function killDrawMode() {
+    drawMode = false;
+    drawBtn.classList.remove('active-btn');
+    removeDrawListeners();
+}
+
 function killShadeMode() {
     shadeMode = false;
     lighterBtn.classList.remove('active-btn');
@@ -307,10 +349,12 @@ function killShadeMode() {
     gridContainer.removeEventListener('mouseup', shadeMouseUp);
 }
 
-function killDrawMode() {
-    drawMode = false;
-    drawBtn.classList.remove('active-btn');
-    removeDrawListeners();
+function killBlurMode() {
+    blurMode = false;
+    blurBtn.classList.remove('active-btn');
+    gridContainer.removeEventListener('mousedown', blurMouseDown);
+    gridContainer.removeEventListener('mouseover', blurMouseOver);
+    gridContainer.removeEventListener('mouseup', blurMouseUp);
 }
 
 function killEraseMode() {
@@ -360,6 +404,8 @@ eraserBtn.addEventListener('click', () => {
     erase = !erase;
     toggleEraseMode();
 });
+
+blurBtn.addEventListener('click', toggleBlurMode);
 
 shadeBtn.addEventListener('click', toggleShadeMode);
 lighterBtn.addEventListener('click', lighterClick);
