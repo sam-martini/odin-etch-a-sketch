@@ -95,12 +95,12 @@ function shadeMouseUp() {
 function shadeSquare(square) {
     //get the current brightness
     let currentBrightness = getFilterValue(square);
-    //reduce the brightness value by 0.1, capped to prevent it from becoming negative or over 1.
+    //reduce / increase the brightness value by 0.1, capped to prevent it from becoming negative or over 500%.
     let newBrightness;
     if (darkerShade) {
         newBrightness = Math.max(currentBrightness - 0.1, 0); 
     } else {
-        newBrightness = Math.min(currentBrightness + 0.1, 1);
+        newBrightness = Math.min(currentBrightness + 0.1, 5);
     }
     //apply the new brightness
     square.style.filter = `brightness(${newBrightness})`;
