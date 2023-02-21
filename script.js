@@ -1,23 +1,23 @@
 const root = document.querySelector(':root');
 const gridContainer = document.querySelector('.grid-container');
 
-const clearBtn = document.querySelector('#clear-btn');
-const drawBtn = document.querySelector('#draw-btn');
-const colorPicker = document.querySelector('#color-picker');
-const randomBtn = document.querySelector('#random-btn');
-const eraserBtn = document.querySelector('#eraser-btn');
+const clearBtn = document.querySelector('.clear-btn');
+const drawBtn = document.querySelector('.draw-btn');
+const colorPicker = document.querySelector('.color-picker');
+const randomBtn = document.querySelector('.random-btn');
+const eraserBtn = document.querySelector('.eraser-btn');
 
-const blurBtn = document.querySelector('#blur-btn');
-const shadeBtn = document.querySelector('#shade-btn');
-const lighterBtn = document.querySelector('#lighter-btn');
-const darkerBtn = document.querySelector('#darker-btn');
+const blurBtn = document.querySelector('.blur-btn');
+const shadeBtn = document.querySelector('.shade-btn');
+const lighterBtn = document.querySelector('.lighter-btn');
+const darkerBtn = document.querySelector('.darker-btn');
 
-const gridBtn = document.querySelector('#grid-btn');
+const gridBtn = document.querySelector('.grid-btn');
 
-const eightGridBtn = document.querySelector('#eight-btn');
-const sixteenGridBtn = document.querySelector('#sixteen-btn');
-const thirtytwoGridBtn = document.querySelector('#thirtytwo-btn');
-const sixtyfourGridBtn = document.querySelector('#sixtyfour-btn');
+const eightGridBtn = document.querySelector('.eight-btn');
+const sixteenGridBtn = document.querySelector('.sixteen-btn');
+const thirtytwoGridBtn = document.querySelector('.thirtytwo-btn');
+const sixtyfourGridBtn = document.querySelector('.sixtyfour-btn');
 const sizeButtons = [eightGridBtn, sixteenGridBtn, thirtytwoGridBtn, sixtyfourGridBtn];
 
 const shadowEl = document.querySelectorAll('.shadow-el');

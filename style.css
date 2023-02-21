@@ -115,60 +115,60 @@ button {
 
 
 
-#draw-btn,
-#eraser-btn,
-#random-btn {
+.draw-btn,
+.eraser-btn,
+.random-btn {
     width: 2.5em;
     height: 2.5em;
     border-radius: 25%;
 }
 
-#color-picker {
+.color-picker {
     width: 5.5em;
     height: 5.5em;
 }
 
 
-#clear-btn {
+.clear-btn {
     margin-bottom: 1em;
 }
 
-#grid-btn {
+.grid-btn {
     margin-top: 1em;
 }
 
-#eraser-btn {
+.eraser-btn {
     margin-bottom: 1em;
 }
 
-#blur-btn {
+.blur-btn {
     margin-top: .25em;
     margin-bottom: .25em;
 }
 
-#shade-btn {
+.shade-btn {
     margin-top: 1em;
 }
 
-#lighter-btn,
-#darker-btn {
+.lighter-btn,
+.darker-btn {
     color: #c8c8c8;
 }
 
 
 
 
-#draw-btn {
+.draw-btn {
     background-image: url('images/pencil.png');
     background-size: cover;
 }
 
-#eraser-btn {
+.eraser-btn {
     background-image: url('images/eraser.png');
     background-size: cover;
 }
 
-#random-btn {
+.random-btn {
     background-image: url('images/rainbow.png');
     background-size: cover;
 }
@@ -190,14 +190,14 @@ button:hover {
     box-shadow: rgba(113, 113, 198, 0.56) 0px 6px 12px 2px,rgba(212, 186, 186, 0.937) 0px 3px 7px 3px;
 }
 
-#blur-btn:hover,
-#shade-btn:hover,
-#clear-btn:hover,
-#eight-btn:hover,
-#sixteen-btn:hover,
-#thirtytwo-btn:hover,
-#sixtyfour-btn:hover,
-#grid-btn:hover {
+.blur-btn:hover,
+.shade-btn:hover,
+.clear-btn:hover,
+.eight-btn:hover,
+.sixteen-btn:hover,
+.thirtytwo-btn:hover,
+.sixtyfour-btn:hover,
+.grid-btn:hover {
     background: linear-gradient(black, #e76767, #ffc20e);
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -255,13 +255,13 @@ button:hover {
     body {
         font-size: 1rem;
     }
-    #draw-btn,
-    #eraser-btn,
-    #random-btn {
+    .draw-btn,
+    .eraser-btn,
+    .random-btn {
         width: 2em;
         height: 2em;
     }
-    #color-picker {
+    .color-picker {
         width: 3.5em;
         height: 3.5em;
     }
@@ -294,22 +294,22 @@ button:hover {
     h1 {
         font-size: 4rem;
     }
-    #draw-btn,
-    #eraser-btn,
-    #random-btn {
+    .draw-btn,
+    .eraser-btn,
+    .random-btn {
         width: 2em;
         height: 2em;
     }
 
-    #clear-btn,
-    #eraser-btn,
-    #blur-btn {
+    .clear-btn,
+    .eraser-btn,
+    .blur-btn {
         margin-bottom: 0;
     }
 
-    #grid-btn,
-    #shade-btn,
-    #blur-btn {
+    .grid-btn,
+    .shade-btn,
+    .blur-btn {
         margin-top: 0;
     }
 
