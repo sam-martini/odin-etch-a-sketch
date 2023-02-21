@@ -9,39 +9,43 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="header"><h1>pixel sketch</h1></div>    
+        
 
-    <div class="container">
-        <div class="gridbtns-container">
-            <button class="clear-btn shadow-el" type="button">Clear</button>
-            <hr>
-            <button class="eight-btn shadow-el" value="8" type="button">8x8</button>
-            <button class="sixteen-btn shadow-el" value="16" type="button">16x16</button>
-            <button class="thirtytwo-btn shadow-el" value="32" type="button">32x32</button>
-            <button class="sixtyfour-btn shadow-el" value="64" type="button">64x64</button>
-            <hr>
-            <button class="grid-btn shadow-el" type="button">Toggle Grid</button>
-        </div>
-        <div class="grid-container shadow-el"></div>
-        <div class="colorbtns-container">
-            <button class="draw-btn shadow-el" type="button"></button>
-            <input class="color-picker color-choice shadow-el" type="color" value="#fff000">
-            <button class="random-btn shadow-el" type="button"></button>
-            <button class="eraser-btn shadow-el" type="button"></button>
-            <hr>
-            <div class="filterbtns-container">
+
+
+    <div class="outer-container">
+
+        <div class="header"><h1>pixel sketch</h1></div>
+        
+        <div class="app-container">
+            <div class="colorbtns-container">
+                <button class="draw-btn shadow-el" type="button"></button>
+                <input class="color-picker color-choice shadow-el" type="color" value="#fff000">
+                <button class="random-btn shadow-el" type="button"></button>
+                <button class="eraser-btn shadow-el" type="button"></button>
                 <button class="blur-btn shadow-el" type="button">Blur</button>
-                <hr>
                 <button class="shade-btn shadow-el" type="button">Shade</button>
-            </div>
-            <div class="shadebtns-container">
                 <button class="lighter-btn shadow-el" type="button">lighter</button>
                 <button class="darker-btn shadow-el" type="button">darker</button>
+                <button class="shadow-el" type="button">smile</button>
             </div>
-            
-        </div>
+            <div class="app-inner-container">
+                <div class="grid-container shadow-el"></div>
+                <div class="gridbtns-container">
+                    <button class="clear-btn shadow-el" type="button">Clear</button>
+                    <button class="eight-btn shadow-el" value="8" type="button">8x8</button>
+                    <button class="sixteen-btn shadow-el" value="16" type="button">16x16</button>
+                    <button class="thirtytwo-btn shadow-el" value="32" type="button">32x32</button>
+                    <button class="sixtyfour-btn shadow-el" value="64" type="button">64x64</button>
+                    <button class="grid-btn shadow-el" type="button">Toggle Grid</button>
+                </div>
+            </div>
+        </div> 
+
     </div>
    
+
+
 
     <script src="script.js"></script>
 </body>

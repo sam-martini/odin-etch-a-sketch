@@ -35,11 +35,12 @@ h1 {
 
 button {
     font-family: 'VT323', monospace;
-    font-size: 1.5em;
+   
     color: black;
     background-color: #faf9f9;
-    padding: 2px;
     border: transparent;
+    height: 4rem;
+    width: 4rem;
 }
 
 .header {
@@ -50,35 +51,49 @@ button {
 }
 
 
-
-
-
-
-
-
-.container {
+.outer-container {
     display: flex;
-    justify-content: center;
-    margin-top: 2rem;
-    gap: 6rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid white;
+}
+
+.app-inner-container {
+    display: flex;
+    flex-direction: row;
+}
+
+
+.colorbtns-container {
+    border: 3px solid purple;
+    display: flex;
+    justify-content: space-between;
 }
 
 .grid-container {
     flex: 0 0 auto;
-    height: 35rem;
-    width: 35rem;
+    height: 37rem;
+    width: 37rem;
+    
     display: flex;
     flex-wrap: wrap;
     background-color: #ffffff;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
-.colorbtns-container,
 .gridbtns-container {
+    border: 3px solid purple;
     display: flex;
     flex-direction: column;
-    gap: .5em;
-    margin-top: 2em;
+    gap: 2rem;
 }
 
 
@@ -88,10 +103,9 @@ button {
 
 
 
-.filterbtns-container {
-    display: flex;
-    flex-direction: column;
-}
+
+
+
 
 
 
@@ -118,15 +132,15 @@ button {
 .draw-btn,
 .eraser-btn,
 .random-btn {
-    width: 2.5em;
-    height: 2.5em;
+    width: 4rem;
+    height: 4rem;
     border-radius: 25%;
+    background-color: transparent;
 }
 
-.color-picker {
-    width: 5.5em;
-    height: 5.5em;
-}
+
+
+/*
 
 
 .clear-btn {
@@ -154,7 +168,7 @@ button {
 .darker-btn {
     color: #c8c8c8;
 }
-
+*/
 
 
 
@@ -206,13 +220,11 @@ button:hover {
 
 
 .active-btn {
-    background-color: #db0f0f9e;
-    color: #ffc20e;
+    box-shadow: rgba(84, 84, 158, 0.56) 0px 8px 11px 2px,rgba(192, 162, 162, 0.937) 0px 3px 7px -3px;
 }
 
 
 .disabled-btn {
-    background-color: #c8c8c8;
 }
 
 .shadow-on {
@@ -241,13 +253,69 @@ button:hover {
 
 
 
-@media (max-width: 1200px) {
-    .container {
-        gap: 3rem;
+@media (max-width: 750px) {
+    .grid-container {
+        height: 30rem;
+        width: 30rem;
+    }
+    button {
+        height: 3rem;
+        width: 3rem;
+    }
+    .draw-btn,
+    .eraser-btn,
+    .random-btn {
+    width: 3rem;
+    height: 3rem;
     }
 }
 
+@media (max-width: 600px) {
+    .grid-container {
+        height: 25rem;
+        width: 25rem;
+    }
+    button {
+        height: 2rem;
+        width: 2rem;
+    }
+    .draw-btn,
+    .eraser-btn,
+    .random-btn {
+    width: 2rem;
+    height: 2rem;
+    }
+}
 
+@media (max-width: 480px) {
+   .grid-container {
+    height: 20rem;
+    width: 20rem;
+}
+    button {
+        height: 2rem;
+        width: 2rem;
+    }
+    .draw-btn,
+    .eraser-btn,
+    .random-btn {
+    width: 2rem;
+    height: 2rem;
+    }
+    .app-inner-container {
+        flex-direction: column;
+    }
+    .gridbtns-container {
+        flex-direction: row;
+        gap: 0;
+        justify-content: space-between;
+    }
+    .grid-container {
+        align-self: center;
+    }
+}
+
+/*
 @media (max-width: 1020px) {
     .container {
         gap: 1.3rem;
@@ -324,3 +392,4 @@ button:hover {
         height: 20rem;
     }
 }
+*/
