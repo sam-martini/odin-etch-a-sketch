@@ -27,16 +27,16 @@ const shadowEl = document.querySelectorAll('.shadow-el');
 
 let showGrid = false;
 let pointerDown = false;
-let useRandomColor = false;
-let erase = false;
 let colorChoice = 'black';
 
+let drawMode = false;
+let useRandomColor = false;
+let erase = false;
 let blurMode = false;
 let shadeMode = false;
-let drawMode = false;
-
-let darkerShade = true;
-let lighterShade = false;
+let brighterMode = false;
+let darkerMode = true;
+let filterMode = false;
 
 let backgroundShadow = false;
 
@@ -99,7 +99,7 @@ function shadeSquare(square) {
     let currentBrightness = getFilterValue(square);
     //reduce / increase the brightness value by 0.1, capped to prevent it from becoming negative or over 500%.
     let newBrightness;
-    if (darkerShade) {
+    if (darkerMode) {
         newBrightness = Math.max(currentBrightness - 0.1, 0); 
     } else {
         newBrightness = Math.min(currentBrightness + 0.1, 5);
@@ -141,122 +141,108 @@ function toggleDrawMode() {
     drawBtn.classList.toggle('active-btn');
     drawMode =! drawMode;
     if (drawMode) {
-        killShadeMode();
-        killBlurMode();
-        enableBtns();
+        killFilterMode();
         gridContainer.addEventListener('pointerdown', drawPointerDown);
         gridContainer.addEventListener('pointerover', drawPointerOver);
         gridContainer.addEventListener('pointerup', drawPointerUp);
     } else {
-        disableBtns();
         removeDrawListeners();
-    }
-}
-
-function toggleShadeMode() {
-    shadeBtn.classList.toggle('active-btn');
-    shadeMode = !shadeMode;
-    if (shadeMode) {
-        killDrawMode();
-        killBlurMode();
-        disableBtns();
-        checkCurrentShade();
-        gridContainer.addEventListener('pointerdown', shadePointerDown);
-        gridContainer.addEventListener('pointerover', shadePointerOver);
-        gridContainer.addEventListener('pointerup', shadePointerUp);
-    } else {
-        toggleDrawMode();
-    }
-}
-
-function toggleBlurMode() {
-    blurBtn.classList.toggle('active-btn');
-    blurMode = !blurMode;
-    if (blurMode) {
-        killDrawMode();
-        killShadeMode();
-        disableBtns();
-        gridContainer.addEventListener('pointerdown', blurPointerDown);
-        gridContainer.addEventListener('pointerover', blurPointerOver);
-        gridContainer.addEventListener('pointerup', blurPointerUp);
-    } else {
-        toggleDrawMode();
-    }
-}
-
-function toggleEraseMode() {
-    if (!erase && shadeMode || !erase && blurMode) {
-        erase = true;
-    }
-    if (erase) {
-        eraserBtn.classList.add('active-btn');
-        flipPencil();
-    } else {
-        killEraseMode();
-    }
-    if (useRandomColor) {
-        killRandomMode();
-    }
-    if (shadeMode || blurMode) {
-        toggleDrawMode();
-    }
-}
-
-function toggleRandomMode() {
-    if (!useRandomColor && shadeMode || !useRandomColor && blurMode) {
-        useRandomColor = true;
-    }
-    if (useRandomColor) {
-        randomBtn.classList.add('active-btn');
-    } else {
-        randomBtn.classList.remove('active-btn');
-    }
-    if (erase) {
-        killEraseMode();
-    }
-    if (shadeMode || blurMode) {
-        toggleDrawMode();
     }
 }
 
 function togglePicker() {
     killEraseMode();
     killRandomMode();
-    if (shadeMode || blurMode) {
+}
+
+function toggleRandomMode() {
+    useRandomColor = !useRandomColor;
+    if (useRandomColor && !drawMode) {
+        killEraseMode();
+        activateBtn(randomBtn);
+        toggleDrawMode();
+    } else if (useRandomColor && drawMode) {
+        killEraseMode();
+        activateBtn(randomBtn);
+    } else {
+        deactivateBtn(randomBtn);
+    }
+}
+
+function toggleEraseMode() {
+    erase = !erase;
+    if (erase && !drawMode) {
+        killRandomMode();
+        activateBtn(eraserBtn);
+        toggleDrawMode();
+    } else if (erase && drawMode) {
+        killRandomMode();
+        activateBtn(eraserBtn);
+    } else {
+        deactivateBtn(eraserBtn);
+    }
+}
+
+function toggleBlurMode() {
+    blurMode = !blurMode;
+    if (blurMode) {
+        killDrawMode();
+        hideActiveMode();
+        activateBtn(blurBtn);
+        gridContainer.addEventListener('pointerdown', blurPointerDown);
+        gridContainer.addEventListener('pointerover', blurPointerOver);
+        gridContainer.addEventListener('pointerup', blurPointerUp);
+    } else {
+        showActiveMode();
+        toggleDrawMode();
+    }
+}
+
+function toggleBrighterMode() {
+    brighterMode = !brighterMode;
+    if (brighterMode && darkerMode) {
+        darkerMode = false;
+        deactivateBtn(darkerBtn);
+    }
+    if (brighterMode) {
+        activateBtn(lighterBtn);   
+    } else {
+        deactivateBtn(lighterBtn);
+    }
+    toggleShadeMode();
+}
+
+function toggleDarkerMode() {
+    darkerMode = !darkerMode;
+    if (darkerMode && brighterMode) {
+        brighterMode = false;
+        deactivateBtn(lighterBtn);
+    }
+    if (darkerMode) {
+        activateBtn(darkerBtn);
+    } else {
+        deactivateBtn(darkerBtn);
+    }
+    toggleShadeMode();
+}
+
+function toggleShadeMode() {
+    if (brighterMode || darkerMode) {
+        killDrawMode();
+        hideActiveMode();
+        gridContainer.addEventListener('pointerdown', shadePointerDown);
+        gridContainer.addEventListener('pointerover', shadePointerOver);
+        gridContainer.addEventListener('pointerup', shadePointerUp);
+    } else {
+        showActiveMode();
         toggleDrawMode();
     }
 }
 
 
-//  Toggle Lighter / Darker Buttons
 
-function lighterClick(e) {
-    if (shadeMode && darkerShade) {
-        lighterBtn.classList.toggle('active-btn');
-        darkerBtn.classList.remove('active-btn');
-        darkerShade = false;
-        lighterShade = true;
-    }
 
-}
 
-function darkerClick(e) {
-    if (shadeMode && lighterShade) {
-        darkerBtn.classList.toggle('active-btn');
-        lighterBtn.classList.remove('active-btn');
-        darkerShade = true;
-        lighterShade = false;
-    }
-}
-
-function checkCurrentShade() {
-    if (shadeMode && darkerShade) {
-        darkerBtn.classList.add('active-btn');
-    }
-    if (shadeMode && lighterShade) {
-        lighterBtn.classList.add('active-btn');
-    }
-}
 
 
 
@@ -373,6 +359,11 @@ function killDrawMode() {
     removeDrawListeners();
 }
 
+function killFilterMode() {
+    killBlurMode();
+    killShadeMode();
+}
+
 function killShadeMode() {
     shadeMode = false;
     lighterBtn.classList.remove('active-btn');
@@ -402,6 +393,24 @@ function killRandomMode() {
     randomBtn.classList.remove('active-btn');
 }
 
+function hideActiveMode() {
+    if (erase) {
+        deactivateBtn(eraserBtn);
+    }
+    if (useRandomColor) {
+        deactivateBtn(randomBtn);
+    }
+}
+
+function showActiveMode() {
+    if (erase) {
+        activateBtn(eraserBtn);
+    }
+    if (useRandomColor) {
+        activateBtn(randomBtn);
+    }
+}
+
 function flipPencil() {
     drawBtn.style.backgroundImage = 'url("images/pencil-flipped.png")';
 }
@@ -410,14 +419,12 @@ function resetPencil() {
     drawBtn.style.backgroundImage = 'url("images/pencil.png")';
 }
 
-function disableBtns() {
-    eraserBtn.classList.add('disabled-btn');
-    randomBtn.classList.add('disabled-btn');
+function activateBtn(btn) {
+    btn.classList.add('active-btn');
 }
 
-function enableBtns() {
-    eraserBtn.classList.remove('disabled-btn');
-    randomBtn.classList.remove('disabled-btn');
+function deactivateBtn(btn) {
+    btn.classList.remove('active-btn');
 }
 
 
@@ -430,26 +437,22 @@ function enableBtns() {
 
 drawBtn.addEventListener('click', toggleDrawMode);
 
-randomBtn.addEventListener('click', () => {
-    useRandomColor = !useRandomColor;
-    toggleRandomMode();
-})
-
-eraserBtn.addEventListener('click', () => {
-    erase = !erase;
-    toggleEraseMode();
-});
-
-blurBtn.addEventListener('click', toggleBlurMode);
-
-shadeBtn.addEventListener('click', toggleShadeMode);
-lighterBtn.addEventListener('click', lighterClick);
-darkerBtn.addEventListener('click', darkerClick);
-
 colorPicker.addEventListener('input', (e) => {
     colorChoice = e.target.value;
     togglePicker();
 })
+
+randomBtn.addEventListener('click', toggleRandomMode);
+
+eraserBtn.addEventListener('click', toggleEraseMode);
+
+blurBtn.addEventListener('click', toggleBlurMode);
+
+lighterBtn.addEventListener('click', toggleBrighterMode);
+
+darkerBtn.addEventListener('click', toggleDarkerMode);
+
+
 
 colorPicker.addEventListener('change', (e) => {
     colorChoice = e.target.value;
