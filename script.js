@@ -20,7 +20,7 @@ const sizeButtons = [eightGridBtn, sixteenGridBtn, thirtytwoGridBtn, sixtyfourGr
 const shadowEl = document.querySelectorAll('.shadow-el');
 
 
-let showGrid = false;
+let showGrid = true;
 let pointerDown = false;
 let colorChoice = 'black';
 
@@ -258,9 +258,12 @@ function createGrid(size) {
 }  
 
 function toggleGrid() {
+    showGrid =! showGrid;
     if (showGrid) {
+        activateBtn(gridBtn);
         root.style.setProperty('--grid-border', '.5px solid black');
     } else {
+        deactivateBtn(gridBtn);
         root.style.setProperty('--grid-border', 'none');
     }
 }
@@ -454,11 +457,7 @@ colorPicker.addEventListener('change', (e) => {
 
 clearBtn.addEventListener('click', clearSquares);
 
-gridBtn.addEventListener('click', () => {
-    gridBtn.classList.toggle('active-btn');
-    showGrid = !showGrid;
-    toggleGrid();
-})
+gridBtn.addEventListener('click', toggleGrid);
 
 sizeButtons.forEach(button => {
     button.addEventListener('click', newGrid);

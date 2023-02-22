@@ -1,5 +1,5 @@
 :root {
-    --grid-border: none;
+    --grid-border: .5px solid black;
 }
 
 * {
@@ -55,7 +55,7 @@ button {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: .5rem;
 }
 
 
@@ -63,7 +63,6 @@ button {
 .app-container {
     display: flex;
     flex-direction: column;
-    border: 2px solid white;
 }
 
 .app-inner-container {
@@ -73,7 +72,7 @@ button {
 
 
 .colorbtns-container {
-    border: 3px solid purple;
+    padding-bottom: 5px;
     display: flex;
     justify-content: space-between;
 }
@@ -82,7 +81,6 @@ button {
     flex: 0 0 auto;
     height: 37rem;
     width: 37rem;
-    
     display: flex;
     flex-wrap: wrap;
     background-color: #ffffff;
@@ -90,7 +88,7 @@ button {
 }
 
 .gridbtns-container {
-    border: 3px solid purple;
+    padding-left: 2rem;
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -129,9 +127,18 @@ button {
 
 
 
+
+
+
+
 .draw-btn,
 .eraser-btn,
-.random-btn {
+.rainbow-btn,
+.blur-btn,
+.shade-btn,
+.brighter-btn,
+.darker-btn,
+.smile-btn {
     width: 4rem;
     height: 4rem;
     border-radius: 25%;
@@ -182,11 +189,35 @@ button {
     background-size: cover;
 }
 
-.random-btn {
+.rainbow-btn {
     background-image: url('images/rainbow.png');
     background-size: cover;
 }
 
+.blur-btn {
+    background-image: url('images/blur.png');
+    background-size: cover;
+}
+
+.shade-btn {
+    background-image: url('images/shade.png');
+    background-size: cover;
+}
+
+.brighter-btn {
+    background-image: url('images/lighter.png');
+    background-size: cover;
+}
+
+.darker-btn {
+    background-image: url('images/darker.png');
+    background-size: cover;
+}
+
+.smile-btn {
+    background-image: url('images/dancing.gif');
+    background-size: cover;
+}
 
 
 
@@ -221,11 +252,10 @@ button:hover {
 
 .active-btn {
     box-shadow: rgba(84, 84, 158, 0.56) 0px 8px 11px 2px,rgba(192, 162, 162, 0.937) 0px 3px 7px -3px;
+    background-color: #e76767;
 }
 
 
-.disabled-btn {
-}
 
 .shadow-on {
     box-shadow: rgba(84, 84, 158, 0.56) 0px 8px 11px 2px,rgba(192, 162, 162, 0.937) 0px 3px 7px -3px;
@@ -264,7 +294,12 @@ button:hover {
     }
     .draw-btn,
     .eraser-btn,
-    .random-btn {
+    .rainbow-btn,
+    .blur-btn,
+    .shade-btn,
+    .brighter-btn,
+    .darker-btn,
+    .smile-btn {
     width: 3rem;
     height: 3rem;
     }
@@ -281,7 +316,12 @@ button:hover {
     }
     .draw-btn,
     .eraser-btn,
-    .random-btn {
+    .rainbow-btn,
+    .blur-btn,
+    .shade-btn,
+    .brighter-btn,
+    .darker-btn,
+    .smile-btn {
     width: 2rem;
     height: 2rem;
     }
@@ -298,7 +338,12 @@ button:hover {
     }
     .draw-btn,
     .eraser-btn,
-    .random-btn {
+    .rainbow-btn,
+    .blur-btn,
+    .shade-btn,
+    .brighter-btn,
+    .darker-btn,
+    .smile-btn {
     width: 2rem;
     height: 2rem;
     }
