@@ -1,19 +1,16 @@
 const root = document.querySelector(':root');
 const gridContainer = document.querySelector('.grid-container');
 
-const clearBtn = document.querySelector('.clear-btn');
 const drawBtn = document.querySelector('.draw-btn');
 const colorPicker = document.querySelector('.color-picker');
-const randomBtn = document.querySelector('.random-btn');
+const rainbowBtn = document.querySelector('.rainbow-btn');
 const eraserBtn = document.querySelector('.eraser-btn');
-
 const blurBtn = document.querySelector('.blur-btn');
-const shadeBtn = document.querySelector('.shade-btn');
-const lighterBtn = document.querySelector('.lighter-btn');
+const brighterBtn = document.querySelector('.brighter-btn');
 const darkerBtn = document.querySelector('.darker-btn');
 
+const clearBtn = document.querySelector('.clear-btn');
 const gridBtn = document.querySelector('.grid-btn');
-
 const eightGridBtn = document.querySelector('.eight-btn');
 const sixteenGridBtn = document.querySelector('.sixteen-btn');
 const thirtytwoGridBtn = document.querySelector('.thirtytwo-btn');
@@ -21,8 +18,6 @@ const sixtyfourGridBtn = document.querySelector('.sixtyfour-btn');
 const sizeButtons = [eightGridBtn, sixteenGridBtn, thirtytwoGridBtn, sixtyfourGridBtn];
 
 const shadowEl = document.querySelectorAll('.shadow-el');
-
-
 
 
 let showGrid = false;
@@ -33,10 +28,8 @@ let drawMode = false;
 let useRandomColor = false;
 let erase = false;
 let blurMode = false;
-let shadeMode = false;
 let brighterMode = false;
 let darkerMode = true;
-let filterMode = false;
 
 let backgroundShadow = false;
 
@@ -159,13 +152,13 @@ function toggleRandomMode() {
     useRandomColor = !useRandomColor;
     if (useRandomColor && !drawMode) {
         killEraseMode();
-        activateBtn(randomBtn);
+        activateBtn(rainbowBtn);
         toggleDrawMode();
     } else if (useRandomColor && drawMode) {
         killEraseMode();
-        activateBtn(randomBtn);
+        activateBtn(rainbowBtn);
     } else {
-        deactivateBtn(randomBtn);
+        deactivateBtn(rainbowBtn);
     }
 }
 
@@ -205,9 +198,9 @@ function toggleBrighterMode() {
         deactivateBtn(darkerBtn);
     }
     if (brighterMode) {
-        activateBtn(lighterBtn);   
+        activateBtn(brighterBtn);   
     } else {
-        deactivateBtn(lighterBtn);
+        deactivateBtn(brighterBtn);
     }
     toggleShadeMode();
 }
@@ -216,7 +209,7 @@ function toggleDarkerMode() {
     darkerMode = !darkerMode;
     if (darkerMode && brighterMode) {
         brighterMode = false;
-        deactivateBtn(lighterBtn);
+        deactivateBtn(brighterBtn);
     }
     if (darkerMode) {
         activateBtn(darkerBtn);
@@ -365,10 +358,10 @@ function killFilterMode() {
 }
 
 function killShadeMode() {
-    shadeMode = false;
-    lighterBtn.classList.remove('active-btn');
+    brighterMode = false;
+    darkerMode = false;
+    brighterBtn.classList.remove('active-btn');
     darkerBtn.classList.remove('active-btn');
-    shadeBtn.classList.remove('active-btn');
     gridContainer.removeEventListener('pointerdown', shadePointerDown);
     gridContainer.removeEventListener('pointerover', shadePointerOver);
     gridContainer.removeEventListener('pointerup', shadePointerUp);
@@ -390,7 +383,7 @@ function killEraseMode() {
 
 function killRandomMode() {
     useRandomColor = false;
-    randomBtn.classList.remove('active-btn');
+    rainbowBtn.classList.remove('active-btn');
 }
 
 function hideActiveMode() {
@@ -398,7 +391,7 @@ function hideActiveMode() {
         deactivateBtn(eraserBtn);
     }
     if (useRandomColor) {
-        deactivateBtn(randomBtn);
+        deactivateBtn(rainbowBtn);
     }
 }
 
@@ -407,7 +400,7 @@ function showActiveMode() {
         activateBtn(eraserBtn);
     }
     if (useRandomColor) {
-        activateBtn(randomBtn);
+        activateBtn(rainbowBtn);
     }
 }
 
@@ -442,13 +435,13 @@ colorPicker.addEventListener('input', (e) => {
     togglePicker();
 })
 
-randomBtn.addEventListener('click', toggleRandomMode);
+rainbowBtn.addEventListener('click', toggleRandomMode);
 
 eraserBtn.addEventListener('click', toggleEraseMode);
 
 blurBtn.addEventListener('click', toggleBlurMode);
 
-lighterBtn.addEventListener('click', toggleBrighterMode);
+brighterBtn.addEventListener('click', toggleBrighterMode);
 
 darkerBtn.addEventListener('click', toggleDarkerMode);
 
