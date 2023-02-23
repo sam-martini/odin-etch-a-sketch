@@ -119,8 +119,7 @@ button {
 
 .square {
     border: var(--grid-border);
-    background-color: #e0cdd1;
-    filter: blur(15px);
+    background-color: transparent;
 }
 
 
