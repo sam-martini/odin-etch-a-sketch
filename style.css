@@ -30,7 +30,7 @@ body {
 
 
 h1 {
-    font-size: 5rem;
+    font-size: 4rem;
 }
 
 button {
@@ -79,8 +79,8 @@ button {
 
 .grid-container {
     flex: 0 0 auto;
-    height: 37rem;
-    width: 37rem;
+    height: 40rem;
+    width: 40rem;
     display: flex;
     flex-wrap: wrap;
     background-color: #ffffff;
@@ -119,7 +119,8 @@ button {
 
 .square {
     border: var(--grid-border);
-    background-color: transparent;
+    background-color: #e0cdd1;
+    filter: blur(15px);
 }
 
 
@@ -138,11 +139,13 @@ button {
 .shade-btn,
 .brighter-btn,
 .darker-btn,
-.smile-btn {
+.smile-btn,
+.color-btn {
     width: 4rem;
     height: 4rem;
     border-radius: 25%;
     background-color: transparent;
+    
 }
 
 
@@ -200,7 +203,7 @@ button {
 }
 
 .shade-btn {
-    background-image: url('images/shade.png');
+    background-image: url('images/temp.png');
     background-size: cover;
 }
 
@@ -215,7 +218,12 @@ button {
 }
 
 .smile-btn {
-    background-image: url('images/dancing.gif');
+    background-image: url('images/temp.png');
+    background-size: cover;
+}
+
+.color-btn {
+    background-image: url('images/color-picker.png');
     background-size: cover;
 }
 
@@ -223,7 +231,9 @@ button {
 
 
 
-
+.color-picker {
+    display: none;
+}
 
 
 
@@ -285,8 +295,8 @@ button:hover {
 
 @media (max-width: 750px) {
     .grid-container {
-        height: 30rem;
-        width: 30rem;
+        height: 35rem;
+        width: 35rem;
     }
     button {
         height: 3rem;
@@ -299,7 +309,8 @@ button:hover {
     .shade-btn,
     .brighter-btn,
     .darker-btn,
-    .smile-btn {
+    .smile-btn,
+    .color-btn {
     width: 3rem;
     height: 3rem;
     }
@@ -321,7 +332,8 @@ button:hover {
     .shade-btn,
     .brighter-btn,
     .darker-btn,
-    .smile-btn {
+    .smile-btn,
+    .color-btn {
     width: 2rem;
     height: 2rem;
     }
@@ -343,7 +355,8 @@ button:hover {
     .shade-btn,
     .brighter-btn,
     .darker-btn,
-    .smile-btn {
+    .smile-btn,
+    .color-btn {
     width: 2rem;
     height: 2rem;
     }
