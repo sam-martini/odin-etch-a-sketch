@@ -21,10 +21,8 @@ html {
 body {
     min-height: 100vh;
     min-height: -webkit-fill-available;
-    text-align: center;
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     font-family: 'VT323', monospace;
-
     background-image: linear-gradient(to right, #434343 0%, black 100%);
 }
 
@@ -35,12 +33,26 @@ h1 {
 
 button {
     font-family: 'VT323', monospace;
-   
+    font-size: 1.25rem;
     color: black;
-    background-color: #faf9f9;
     border: transparent;
-    height: 4rem;
-    width: 4rem;
+    border-radius: 25%;
+    height: 3.5rem;
+    width: 3.5rem;
+    background-image: url('images/btn-background.png');
+    background-size: cover;
+    text-shadow: 2px 2px #cfc9c9;
+    filter: brightness(.75);
+}
+
+
+
+
+
+.outer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .header {
@@ -48,33 +60,25 @@ button {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     -webkit-background-clip: text;
-}
-
-
-.outer-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: .5rem;
+    padding-top: .5em;
+    padding-bottom: 1em;
 }
 
 
 
 .app-container {
+    margin-top: 1rem;
+    
+}
+
+.colorbtns-container {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
 }
 
 .app-inner-container {
     display: flex;
     flex-direction: row;
-}
-
-
-.colorbtns-container {
-    padding-bottom: 5px;
-    display: flex;
-    justify-content: space-between;
 }
 
 .grid-container {
@@ -83,151 +87,50 @@ button {
     width: 40rem;
     display: flex;
     flex-wrap: wrap;
-    background-color: #ffffff;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    background-color: #f6f4e3;
+    box-shadow: #4c76de 1px 1px 15px 0px;
+    padding: .25rem;
 }
-
-.gridbtns-container {
-    padding-left: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .square {
     border: var(--grid-border);
+}
+
+.gridbtns-container {
+    margin-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+
+
+.grid-container,
+.gridbtns-container {
+    margin-top: .75rem;
+}
+
+.onetwentyeight-btn {
+    font-size: .9rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+.img-btn {
+    width: 3rem;
+    height: 3rem;
     background-color: transparent;
+    filter: brightness(0.5);
 }
-
-
-
-
-
-
-
-
-
-
-.draw-btn,
-.eraser-btn,
-.rainbow-btn,
-.blur-btn,
-.shade-btn,
-.brighter-btn,
-.darker-btn,
-.smile-btn,
-.color-btn {
-    width: 4rem;
-    height: 4rem;
-    border-radius: 25%;
-    background-color: transparent;
-    
-}
-
-
-
-/*
-
-
-.clear-btn {
-    margin-bottom: 1em;
-}
-
-.grid-btn {
-    margin-top: 1em;
-}
-
-.eraser-btn {
-    margin-bottom: 1em;
-}
-
-.blur-btn {
-    margin-top: .25em;
-    margin-bottom: .25em;
-}
-
-.shade-btn {
-    margin-top: 1em;
-}
-
-.lighter-btn,
-.darker-btn {
-    color: #c8c8c8;
-}
-*/
-
-
-
-.draw-btn {
-    background-image: url('images/pencil.png');
-    background-size: cover;
-}
-
-.eraser-btn {
-    background-image: url('images/eraser.png');
-    background-size: cover;
-}
-
-.rainbow-btn {
-    background-image: url('images/rainbow.png');
-    background-size: cover;
-}
-
-.blur-btn {
-    background-image: url('images/blur.png');
-    background-size: cover;
-}
-
-.shade-btn {
-    background-image: url('images/temp.png');
-    background-size: cover;
-}
-
-.brighter-btn {
-    background-image: url('images/lighter.png');
-    background-size: cover;
-}
-
-.darker-btn {
-    background-image: url('images/darker.png');
-    background-size: cover;
-}
-
-.smile-btn {
-    background-image: url('images/temp.png');
-    background-size: cover;
-}
-
-.color-btn {
-    background-image: url('images/color-picker.png');
-    background-size: cover;
-}
-
-
-
 
 
 .color-picker {
@@ -239,29 +142,30 @@ button {
 
 
 
+
+
+
+
+
+
+
+
 button:hover {
     cursor: pointer;
-    box-shadow: rgba(113, 113, 198, 0.56) 0px 6px 12px 2px,rgba(212, 186, 186, 0.937) 0px 3px 7px 3px;
+    filter: drop-shadow(0 0 0.25rem white);
 }
 
-.blur-btn:hover,
-.shade-btn:hover,
-.clear-btn:hover,
-.eight-btn:hover,
-.sixteen-btn:hover,
-.thirtytwo-btn:hover,
-.sixtyfour-btn:hover,
-.grid-btn:hover {
-    background: linear-gradient(black, #e76767, #ffc20e);
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    -webkit-background-clip: text;
+.color-btn:hover {
+    cursor: pointer;
+    filter: drop-shadow(0 0 0.25rem white);
 }
+
+
 
 
 .active-btn {
-    box-shadow: rgba(84, 84, 158, 0.56) 0px 8px 11px 2px,rgba(192, 162, 162, 0.937) 0px 3px 7px -3px;
-    background-color: #e76767;
+    filter: drop-shadow(0 0 0.25rem #fefae0);
+    color: #c04141;
 }
 
 
@@ -286,13 +190,72 @@ button:hover {
 
 
 
+.draw-btn {
+    background-image: url('images/pencil.png');
+    background-size: cover;
+}
+
+.eraser-btn {
+    background-image: url('images/eraser.png');
+    background-size: cover;
+}
+
+.rainbow-btn {
+    background-image: url('images/rainbow.png');
+    background-size: cover;
+}
+
+.blur-btn {
+    background-image: url('images/blur.png');
+    background-size: cover;
+}
+
+.sepia-btn {
+    background-image: url('images/temp.png');
+    background-size: cover;
+}
+
+.brighter-btn {
+    background-image: url('images/lighter.png');
+    background-size: cover;
+}
+
+.darker-btn {
+    background-image: url('images/darker.png');
+    background-size: cover;
+}
+
+.spacer-btn {
+    background-image: url('images/temp.png');
+    background-size: cover;
+}
+
+.color-btn {
+    background-image: url('images/color-picker.png');
+    background-size: cover;
+}
 
 
 
 
 
 
-@media (max-width: 750px) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 775px) {
     .grid-container {
         height: 35rem;
         width: 35rem;
@@ -301,152 +264,67 @@ button:hover {
         height: 3rem;
         width: 3rem;
     }
-    .draw-btn,
-    .eraser-btn,
-    .rainbow-btn,
-    .blur-btn,
-    .shade-btn,
-    .brighter-btn,
-    .darker-btn,
-    .smile-btn,
-    .color-btn {
-    width: 3rem;
-    height: 3rem;
+}
+
+@media (max-width: 700px) {
+    .grid-container {
+        height: 30rem;
+        width: 30rem;
+    }
+    
+    .img-btn {
+    width: 2.5rem;
+    height: 2.5rem;
     }
 }
 
 @media (max-width: 600px) {
     .grid-container {
-        height: 25rem;
-        width: 25rem;
+        height: 27rem;
+        width: 27rem;
     }
-    button {
-        height: 2rem;
-        width: 2rem;
+
+    .grid-container {
+        margin-left: .25rem;
     }
-    .draw-btn,
-    .eraser-btn,
-    .rainbow-btn,
-    .blur-btn,
-    .shade-btn,
-    .brighter-btn,
-    .darker-btn,
-    .smile-btn,
-    .color-btn {
-    width: 2rem;
-    height: 2rem;
-    }
+    
 }
 
-@media (max-width: 480px) {
-   .grid-container {
-    height: 20rem;
-    width: 20rem;
-}
-    button {
-        height: 2rem;
-        width: 2rem;
-    }
-    .draw-btn,
-    .eraser-btn,
-    .rainbow-btn,
-    .blur-btn,
-    .shade-btn,
-    .brighter-btn,
-    .darker-btn,
-    .smile-btn,
-    .color-btn {
-    width: 2rem;
-    height: 2rem;
-    }
+@media (max-width: 540px) {
     .app-inner-container {
         flex-direction: column;
     }
     .gridbtns-container {
         flex-direction: row;
-        gap: 0;
         justify-content: space-between;
+        margin-left: 0;
     }
     .grid-container {
         align-self: center;
+        margin-top: 1rem;
     }
-}
-
-/*
-@media (max-width: 1020px) {
-    .container {
-        gap: 1.3rem;
-    }
-    body {
-        font-size: 1rem;
-    }
-    .draw-btn,
-    .eraser-btn,
-    .random-btn {
-        width: 2em;
-        height: 2em;
-    }
-    .color-picker {
-        width: 3.5em;
-        height: 3.5em;
-    }
-}
-
-
-@media (max-width: 900px) {
-    grid-container {
-        width: 25rem;
-        height: 25rem;
-    }
-}
-
-
-@media (max-width: 850px) {
-    .container {
-        gap: 2rem;
-        flex-direction: column;
-        align-items: center;
-    }
-    .colorbtns-container,
     .gridbtns-container {
-        flex-direction: row;
-        margin-top: 0;
+        margin-top: 1.5rem;
     }
-    .shadebtns-container {
-        display: flex;
-        flex-direction: column;
-    }
-    h1 {
-        font-size: 4rem;
-    }
-    .draw-btn,
-    .eraser-btn,
-    .random-btn {
-        width: 2em;
-        height: 2em;
-    }
-
-    .clear-btn,
-    .eraser-btn,
-    .blur-btn {
-        margin-bottom: 0;
-    }
-
-    .grid-btn,
-    .shade-btn,
-    .blur-btn {
-        margin-top: 0;
-    }
-
-   
-
     
 }
 
-@media (max-width: 600px) {
-    .grid-container {
-        width: 20rem;
-        height: 20rem;
+@media (max-width: 470px) {
+   .grid-container {
+    height: 22rem;
+    width: 22rem;
     }
+    button {
+        height: 2.5rem;
+        width: 2.5rem;
+        font-size: 1rem;
+    }
+    .onetwentyeight-btn {
+        font-size: .7rem;
+    }
+    .img-btn {
+    width: 2rem;
+    height: 2rem;
+    }
+    
 }
-*/
