@@ -61,11 +61,12 @@ function addFilterToSquare(square) {
 
 function updateFilter(square, filterType, value) {
     square.filter[filterType] = value;
+    applyFilter(square);
 }
 
 function resetFilters(square) {
-    square.filter['brightness'] = 100;
-    square.filter['blur'] = 0;
+    updateFilter(square, 'brightness', 100);
+    updateFilter(square, 'blur', 0);
 }
 
 function applyFilter(square) {
@@ -93,7 +94,6 @@ function drawPointerDown(e) {
 
 function drawPointerOver(e) {
     if (pointerDown && e.target.classList.contains('square')) {
-        resetFilters(e.target);
         drawSquare(e.target);
     }
 }
@@ -147,7 +147,6 @@ function shadeSquare(square) {
     }
     //apply the new brightness
     updateFilter(square, 'brightness', newBrightness);
-    applyFilter(square);
 }
 
 
@@ -176,7 +175,6 @@ function blurSquare(square) {
     console.log(currentBlur);
     newBlur = currentBlur + .5;
     updateFilter(square, 'blur', newBlur);
-    applyFilter(square);
 }
 
 
