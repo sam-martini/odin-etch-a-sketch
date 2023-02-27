@@ -1,5 +1,6 @@
 :root {
     --grid-border: .5px solid black;
+    --square-color: #4c76de;
 }
 
 * {
@@ -66,10 +67,7 @@ button {
 
 
 
-.app-container {
-    margin-top: 1rem;
-    
-}
+
 
 .colorbtns-container {
     display: flex;
@@ -94,6 +92,7 @@ button {
 
 .square {
     border: var(--grid-border);
+    background-color: transparent;
 }
 
 .gridbtns-container {
@@ -210,7 +209,7 @@ button:hover {
     background-size: cover;
 }
 
-.sepia-btn {
+.gridshape-btn {
     background-image: url('images/temp.png');
     background-size: cover;
 }
@@ -235,8 +234,27 @@ button:hover {
     background-size: cover;
 }
 
+.backlight-btn {
+    background-image: url('images/backlight.png');
+    background-size: cover;
+}
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+.morph-square {
+    border-radius: 27% 73% 28% 72% / 63% 23% 77% 37%;
+}
 
 
 

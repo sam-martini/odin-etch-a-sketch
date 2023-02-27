@@ -6,6 +6,7 @@ const colorPicker = document.querySelector('.color-picker');
 const rainbowBtn = document.querySelector('.rainbow-btn');
 const eraserBtn = document.querySelector('.eraser-btn');
 const blurBtn = document.querySelector('.blur-btn');
+const gridShapeBtn = document.querySelector('.gridshape-btn');
 const brighterBtn = document.querySelector('.brighter-btn');
 const darkerBtn = document.querySelector('.darker-btn');
 
@@ -15,6 +16,7 @@ const eightGridBtn = document.querySelector('.eight-btn');
 const sixteenGridBtn = document.querySelector('.sixteen-btn');
 const thirtytwoGridBtn = document.querySelector('.thirtytwo-btn');
 const sixtyfourGridBtn = document.querySelector('.sixtyfour-btn');
+
 const sizeButtons = [eightGridBtn, sixteenGridBtn, thirtytwoGridBtn, sixtyfourGridBtn];
 
 const shadowEl = document.querySelectorAll('.shadow-el');
@@ -22,16 +24,61 @@ const shadowEl = document.querySelectorAll('.shadow-el');
 
 let showGrid = true;
 let pointerDown = false;
-let colorChoice = 'black';
+let colorChoice = '#1d2429';
 
 let drawMode = false;
 let useRandomColor = false;
 let erase = false;
 let blurMode = false;
+let circleGrid = false;
 let brighterMode = false;
 let darkerMode = true;
 
 let backgroundShadow = false;
+
+
+/* About the changes (was too messy trying to apply different css filters)
+
+1) create seperate 'filter' object for each square
+
+2) add functions that get, set and reset filter values
+
+3) update blur mode to gradually blur while mouse on
+
+3) add mode that toggles the border-radius property of the squares
+
+4) turn off 'mood' - runs slow */
+
+
+function addFilterToSquare(square) {
+    square.filter = {
+        blur: 0, 
+        brightness: 100, 
+        sepia: 0
+    };
+}
+
+
+function updateFilter(square, filterType, value) {
+    square.filter[filterType] = value;
+}
+
+function resetFilters(square) {
+    square.filter['brightness'] = 100;
+    square.filter['blur'] = 0;
+}
+
+function applyFilter(square) {
+    square.style.filter = `
+    blur(${square.filter.blur}px) 
+    brightness(${square.filter.brightness}%) 
+    sepia(${square.filter.sepia}%)
+    `;
+}
+
+function getProperty(obj, prop) {
+    return obj[prop];
+}
 
 
 
@@ -46,7 +93,7 @@ function drawPointerDown(e) {
 
 function drawPointerOver(e) {
     if (pointerDown && e.target.classList.contains('square')) {
-        resetBrightness(e.target);
+        resetFilters(e.target);
         drawSquare(e.target);
     }
 }
@@ -56,7 +103,7 @@ function drawPointerUp() {
 }
 
 function drawSquare(square) {
-    resetBrightness(square);
+    resetFilters(square);
     if (erase) {
         square.style.backgroundColor = 'transparent';
     } else if (useRandomColor) {
@@ -89,16 +136,18 @@ function shadePointerUp() {
 
 function shadeSquare(square) {
     //get the current brightness
-    let currentBrightness = getFilterValue(square);
-    //reduce / increase the brightness value by 0.1, capped to prevent it from becoming negative or over 500%.
+    let currentBrightness = getProperty(square.filter, 'brightness');
+    console.log(currentBrightness);
+    //make a new brightness depending on what mode is selected
     let newBrightness;
     if (darkerMode) {
-        newBrightness = Math.max(currentBrightness - 0.1, 0); 
+        newBrightness = currentBrightness - 5;
     } else {
-        newBrightness = Math.min(currentBrightness + 0.1, 5);
+        newBrightness = currentBrightness + 5;
     }
     //apply the new brightness
-    square.style.filter = `brightness(${newBrightness})`;
+    updateFilter(square, 'brightness', newBrightness);
+    applyFilter(square);
 }
 
 
@@ -123,9 +172,31 @@ function blurPointerUp() {
 }
 
 function blurSquare(square) {
-    square.style.filter = 'blur(15px)';
+    let currentBlur = getProperty(square.filter, 'blur');
+    console.log(currentBlur);
+    newBlur = currentBlur + .5;
+    updateFilter(square, 'blur', newBlur);
+    applyFilter(square);
 }
 
+
+//      ----    grid - shape       ----        ----        ----
+
+function gridShapeOn() {
+    const squares = gridContainer.querySelectorAll('.square');
+    squares.forEach(square => {
+        square.classList.add('morph-square');
+    })
+    
+}
+
+function gridShapeOff() {
+    const squares = gridContainer.querySelectorAll('.square');
+    squares.forEach(square => {
+        square.classList.remove('morph-square');
+    })
+    
+}
 
 
 //      ----        Modes       ----        ----        ----
@@ -191,6 +262,17 @@ function toggleBlurMode() {
     }
 }
 
+function toggleGridShape() {
+    circleGrid =! circleGrid;
+    if (circleGrid) {
+        activateBtn(gridShapeBtn);
+        gridShapeOn();
+    } else {
+        deactivateBtn(gridShapeBtn);
+        gridShapeOff();
+    }
+}
+
 function toggleBrighterMode() {
     brighterMode = !brighterMode;
     if (brighterMode && darkerMode) {
@@ -251,11 +333,12 @@ function createGrid(size) {
     for (let i = 0; i < numberOfSquares; i++) {
         const square = document.createElement('div');
         square.className = 'square';
+        addFilterToSquare(square);
         square.style.width = `calc(100% / ${columns})`;
         square.style.height = `calc(100% / ${rows})`;
         gridContainer.appendChild(square);
     }
-}  
+}
 
 function toggleGrid() {
     showGrid =! showGrid;
@@ -286,7 +369,7 @@ function newGrid(e) {
 
   
 //      ----        Background Shadow      ----        ----        ----
-
+/*
 function shadowPointerDown(e) {
     if (e.target.classList.contains('square')) {
         backgroundShadow = true;
@@ -303,6 +386,7 @@ function shadowPointerUp() {
         el.classList.remove('shadow-on');
     });
 }
+*/
 
 
 
@@ -331,16 +415,6 @@ function clearSquares() {
         square.style.backgroundColor = 'transparent';
         square.style.filter = 'blur(0)';
     })
-}
-
-function getFilterValue(element) {
-    //extract the numeric value in between the parantheses of the 'filter' property.
-    let value = parseFloat(getComputedStyle(element).getPropertyValue('filter').split('(')[1].split(')')[0]);
-    return value;
-}
-
-function resetBrightness(square) {
-    square.style.filter = 'brightness(1)';
 }
 
 function removeDrawListeners() {
@@ -444,6 +518,8 @@ eraserBtn.addEventListener('click', toggleEraseMode);
 
 blurBtn.addEventListener('click', toggleBlurMode);
 
+gridShapeBtn.addEventListener('click', toggleGridShape);
+
 brighterBtn.addEventListener('click', toggleBrighterMode);
 
 darkerBtn.addEventListener('click', toggleDarkerMode);
@@ -462,16 +538,16 @@ gridBtn.addEventListener('click', toggleGrid);
 sizeButtons.forEach(button => {
     button.addEventListener('click', newGrid);
 })
-
+/*
 function mood() {
     gridContainer.addEventListener('pointerdown', shadowPointerDown);
     gridContainer.addEventListener('pointerup', shadowPointerUp);
 }
-
+*/
 
 
 
 
 createGrid(16);
 toggleDrawMode();
-mood();
+//mood();
