@@ -1,5 +1,6 @@
 const root = document.querySelector(':root');
 const gridContainer = document.querySelector('.grid-container');
+const gridbtnsContainer = document.querySelector('.gridbtns-container');
 
 const drawBtn = document.querySelector('.draw-btn');
 const colorPicker = document.querySelector('.color-picker');
@@ -16,6 +17,7 @@ const eightGridBtn = document.querySelector('.eight-btn');
 const sixteenGridBtn = document.querySelector('.sixteen-btn');
 const thirtytwoGridBtn = document.querySelector('.thirtytwo-btn');
 const sixtyfourGridBtn = document.querySelector('.sixtyfour-btn');
+const backlightBtn = document.querySelector('.backlight-btn');
 
 const sizeButtons = [eightGridBtn, sixteenGridBtn, thirtytwoGridBtn, sixtyfourGridBtn];
 
@@ -33,6 +35,7 @@ let blurMode = false;
 let circleGrid = false;
 let brighterMode = false;
 let darkerMode = true;
+let backlight = true;
 
 let backgroundShadow = false;
 
@@ -137,7 +140,6 @@ function shadePointerUp() {
 function shadeSquare(square) {
     //get the current brightness
     let currentBrightness = getProperty(square.filter, 'brightness');
-    console.log(currentBrightness);
     //make a new brightness depending on what mode is selected
     let newBrightness;
     if (darkerMode) {
@@ -172,7 +174,6 @@ function blurPointerUp() {
 
 function blurSquare(square) {
     let currentBlur = getProperty(square.filter, 'blur');
-    console.log(currentBlur);
     newBlur = currentBlur + .5;
     updateFilter(square, 'blur', newBlur);
 }
@@ -203,6 +204,7 @@ function toggleDrawMode() {
     drawBtn.classList.toggle('active-btn');
     drawMode =! drawMode;
     if (drawMode) {
+        resetPencil();
         killFilterMode();
         gridContainer.addEventListener('pointerdown', drawPointerDown);
         gridContainer.addEventListener('pointerover', drawPointerOver);
@@ -233,15 +235,18 @@ function toggleRandomMode() {
 
 function toggleEraseMode() {
     erase = !erase;
+    if (erase) {
+        activateBtn(eraserBtn);
+        flipPencil();
+    }
     if (erase && !drawMode) {
         killRandomMode();
-        activateBtn(eraserBtn);
         toggleDrawMode();
     } else if (erase && drawMode) {
         killRandomMode();
-        activateBtn(eraserBtn);
     } else {
         deactivateBtn(eraserBtn);
+        resetPencil();
     }
 }
 
@@ -317,7 +322,18 @@ function toggleShadeMode() {
 
 
 
-
+function toggleBacklight() {
+    backlight =! backlight;
+    if (backlight) {
+        backlightBtn.classList.add('active-grid-btn');
+        gridContainer.classList.add('backlight');
+        gridbtnsContainer.classList.add('gridbtns-background');
+    } else {
+        gridContainer.classList.remove('backlight');
+        gridbtnsContainer.classList.remove('gridbtns-background');
+        backlightBtn.classList.remove('active-grid-btn');
+    }
+}
 
 
 
@@ -341,10 +357,10 @@ function createGrid(size) {
 function toggleGrid() {
     showGrid =! showGrid;
     if (showGrid) {
-        activateBtn(gridBtn);
+        gridBtn.classList.add('active-grid-btn');
         root.style.setProperty('--grid-border', '.5px solid black');
     } else {
-        deactivateBtn(gridBtn);
+        gridBtn.classList.remove('active-grid-btn');
         root.style.setProperty('--grid-border', 'none');
     }
 }
@@ -530,6 +546,8 @@ colorPicker.addEventListener('change', (e) => {
 })
 
 clearBtn.addEventListener('click', clearSquares);
+
+backlightBtn.addEventListener('click', toggleBacklight);
 
 gridBtn.addEventListener('click', toggleGrid);
 
