@@ -138,16 +138,14 @@ function shadePointerUp() {
 }
 
 function shadeSquare(square) {
-    //get the current brightness
     let currentBrightness = getProperty(square.filter, 'brightness');
-    //make a new brightness depending on what mode is selected
     let newBrightness;
     if (darkerMode) {
         newBrightness = currentBrightness - 5;
     } else {
-        newBrightness = currentBrightness + 5;
+        newBrightness = currentBrightness + 8;
     }
-    //apply the new brightness
+
     updateFilter(square, 'brightness', newBrightness);
 }
 
@@ -175,6 +173,7 @@ function blurPointerUp() {
 function blurSquare(square) {
     let currentBlur = getProperty(square.filter, 'blur');
     newBlur = currentBlur + .5;
+
     updateFilter(square, 'blur', newBlur);
 }
 
@@ -273,6 +272,12 @@ function toggleGridShape() {
     } else {
         deactivateBtn(gridShapeBtn);
         gridShapeOff();
+    }
+}
+
+function checkGridShape() {
+    if (circleGrid) {
+        gridShapeOn();
     }
 }
 
@@ -375,6 +380,7 @@ function newGrid(e) {
     const size = parseInt(this.value);
     clearGrid();
     createGrid(size);
+    checkGridShape();
 }
 
 
