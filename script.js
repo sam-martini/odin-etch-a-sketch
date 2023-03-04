@@ -40,50 +40,6 @@ let backlight = true;
 let backgroundShadow = false;
 
 
-/* About the changes (was too messy trying to apply different css filters)
-
-1) create seperate 'filter' object for each square
-
-2) add functions that get, set and reset filter values
-
-3) update blur mode to gradually blur while mouse on
-
-3) add mode that toggles the border-radius property of the squares
-
-4) turn off 'mood' - runs slow */
-
-
-function addFilterToSquare(square) {
-    square.filter = {
-        blur: 0, 
-        brightness: 100, 
-        sepia: 0
-    };
-}
-
-
-function updateFilter(square, filterType, value) {
-    square.filter[filterType] = value;
-    applyFilter(square);
-}
-
-function resetFilters(square) {
-    updateFilter(square, 'brightness', 100);
-    updateFilter(square, 'blur', 0);
-}
-
-function applyFilter(square) {
-    square.style.filter = `
-    blur(${square.filter.blur}px) 
-    brightness(${square.filter.brightness}%) 
-    sepia(${square.filter.sepia}%)
-    `;
-}
-
-function getProperty(obj, prop) {
-    return obj[prop];
-}
-
 
 
 //      ----    drawing functions      ----     ----        ----
@@ -175,6 +131,35 @@ function blurSquare(square) {
     newBlur = currentBlur + .5;
 
     updateFilter(square, 'blur', newBlur);
+}
+
+
+//      ----    filter functions       ----        ----        ----
+
+function addFilterToSquare(square) {
+    square.filter = {
+        blur: 0, 
+        brightness: 100, 
+        sepia: 0
+    };
+}
+
+function updateFilter(square, filterType, value) {
+    square.filter[filterType] = value;
+    applyFilter(square);
+}
+
+function applyFilter(square) {
+    square.style.filter = `
+    blur(${square.filter.blur}px) 
+    brightness(${square.filter.brightness}%) 
+    sepia(${square.filter.sepia}%)
+    `;
+}
+
+function resetFilters(square) {
+    updateFilter(square, 'brightness', 100);
+    updateFilter(square, 'blur', 0);
 }
 
 
@@ -322,11 +307,6 @@ function toggleShadeMode() {
     }
 }
 
-
-
-
-
-
 function toggleBacklight() {
     backlight =! backlight;
     if (backlight) {
@@ -387,38 +367,10 @@ function newGrid(e) {
 
 
 
-  
-//      ----        Background Shadow      ----        ----        ----
-/*
-function shadowPointerDown(e) {
-    if (e.target.classList.contains('square')) {
-        backgroundShadow = true;
-        shadowEl.forEach((el) => {
-            el.classList.add('shadow-on');
-        });
-    }
-}
-
-
-function shadowPointerUp() {
-    backgroundShadow = false;
-    shadowEl.forEach((el) => {
-        el.classList.remove('shadow-on');
-    });
-}
-*/
 
 
 
-
-
-
-
-
-
-
-
-//      ----        helper functions        ----        ----     
+//      ----        other functions        ----        ----     
 
 function randomColor() {
     const letters = '0123456789ABCDEF';
@@ -427,6 +379,10 @@ function randomColor() {
         color += letters[Math.floor(Math.random() * 16)];
     }
     return color;
+}
+
+function getProperty(obj, prop) {
+    return obj[prop];
 }
 
 function clearSquares() {
@@ -560,16 +516,11 @@ gridBtn.addEventListener('click', toggleGrid);
 sizeButtons.forEach(button => {
     button.addEventListener('click', newGrid);
 })
-/*
-function mood() {
-    gridContainer.addEventListener('pointerdown', shadowPointerDown);
-    gridContainer.addEventListener('pointerup', shadowPointerUp);
-}
-*/
+
+
 
 
 
 
 createGrid(16);
 toggleDrawMode();
-//mood();
