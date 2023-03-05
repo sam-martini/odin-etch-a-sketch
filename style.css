@@ -86,10 +86,12 @@ button {
     width: 40rem;
     display: flex;
     flex-wrap: wrap;
-    resize: both;
-    overflow: auto;
 
     padding: .25rem;
+    /*
+    resize: both;
+    overflow: auto;
+    */
 }
 
 .backlight {
