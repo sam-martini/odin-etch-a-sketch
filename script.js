@@ -192,7 +192,7 @@ function toggleDrawMode() {
         killFilterMode();
         gridContainer.addEventListener('pointerdown', drawPointerDown);
         gridContainer.addEventListener('pointerover', drawPointerOver);
-        gridContainer.addEventListener('pointerup', drawPointerUp);
+        document.addEventListener('pointerup', drawPointerUp);
     } else {
         removeDrawListeners();
     }
@@ -242,7 +242,7 @@ function toggleBlurMode() {
         activateBtn(blurBtn);
         gridContainer.addEventListener('pointerdown', blurPointerDown);
         gridContainer.addEventListener('pointerover', blurPointerOver);
-        gridContainer.addEventListener('pointerup', blurPointerUp);
+        document.addEventListener('pointerup', blurPointerUp);
     } else {
         showActiveMode();
         toggleDrawMode();
@@ -300,7 +300,7 @@ function toggleShadeMode() {
         hideActiveMode();
         gridContainer.addEventListener('pointerdown', shadePointerDown);
         gridContainer.addEventListener('pointerover', shadePointerOver);
-        gridContainer.addEventListener('pointerup', shadePointerUp);
+        document.addEventListener('pointerup', shadePointerUp);
     } else {
         showActiveMode();
         toggleDrawMode();
@@ -396,7 +396,7 @@ function clearSquares() {
 function removeDrawListeners() {
     gridContainer.removeEventListener('pointerdown', drawPointerDown);
     gridContainer.removeEventListener('pointerover', drawPointerOver);
-    gridContainer.removeEventListener('pointerup', drawPointerUp);
+    document.removeEventListener('pointerup', drawPointerUp);
 }
 
 function killDrawMode() {
@@ -417,7 +417,7 @@ function killShadeMode() {
     darkerBtn.classList.remove('active-btn');
     gridContainer.removeEventListener('pointerdown', shadePointerDown);
     gridContainer.removeEventListener('pointerover', shadePointerOver);
-    gridContainer.removeEventListener('pointerup', shadePointerUp);
+    document.removeEventListener('pointerup', shadePointerUp);
 }
 
 function killBlurMode() {
@@ -425,7 +425,7 @@ function killBlurMode() {
     blurBtn.classList.remove('active-btn');
     gridContainer.removeEventListener('pointerdown', blurPointerDown);
     gridContainer.removeEventListener('pointerover', blurPointerOver);
-    gridContainer.removeEventListener('pointerup', blurPointerUp);
+    document.removeEventListener('pointerup', blurPointerUp);
 }
 
 function killEraseMode() {
@@ -518,7 +518,9 @@ sizeButtons.forEach(button => {
 })
 
 
-
+document.addEventListener("dragstart", (e) => {
+    e.preventDefault();
+});
 
 
 
